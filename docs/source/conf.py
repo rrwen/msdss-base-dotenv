@@ -53,7 +53,8 @@ extensions = [
     'sphinx.ext.mathjax'
 ]
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/3/', None)
+    'python': ('https://docs.python.org/3/', None),
+    'cryptography': ('https://cryptography.io/en/latest/', None)
 }
 napoleon_custom_sections = ['Author', 'Authors']
 napoleon_include_private_with_doc = True
