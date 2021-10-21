@@ -136,3 +136,6 @@ tmp/
 
 # Executed docs codeblocks
 jupyter_execute/
+
+# Keys
+.env.key

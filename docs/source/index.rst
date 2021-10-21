@@ -1,5 +1,5 @@
 msdss-base-dotenv
-==============
+=================
 
 Environmental file management for the Modular Spatial Decision Support Systems (MSDSS) framework.
 
@@ -38,7 +38,16 @@ After installing the package, use in Python via functions:
    save_env_file(env, file_path='./.env')
 
    # Load the encrypted environmental variables
-   env = load_env_file(file_path='./.env')
+   loaded_env = load_env_file(file_path='./.env')
+
+   # Load with defaults
+   defaults = dict(database='postgres', port='5432')
+   loaded_env_defaults = load_env_file('./.env', defaults=defaults)
+
+   # Display the results
+   print('env: ' + str(env))
+   print('loaded_env: ' + str(loaded_env))
+   print('loaded_env_defaults: ' + str(loaded_env_defaults))
 
 API Reference
 =============

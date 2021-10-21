@@ -126,7 +126,7 @@
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="save_env_file"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.save_env_file">[docs]</a><span class="k">def</span> <span class="nf">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="save_env_file"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.save_env_file">[docs]</a><span class="k">def</span> <span class="nf">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{}):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Saves a login file with the connection details.</span>
 <span class="sd">    </span>
@@ -138,6 +138,8 @@
 <span class="sd">        Path of the encrypted environment save file. Read/write/execute permissions will be set only for the owner of this file.</span>
 <span class="sd">    key_path : str</span>
 <span class="sd">        Path of the key file used to unlock the save file. If ``None``, this defaults to the package&#39;s directory.</span>
+<span class="sd">    defaults : dict</span>
+<span class="sd">        Key and value pairs representing default environment values to be saved. These will replace ones in ``env`` if they do not exist or are unset.</span>
 
 <span class="sd">    Author</span>
 <span class="sd">    ------</span>
@@ -158,6 +160,10 @@
 <span class="sd">        # Save the key value env to an encrypted file</span>
 <span class="sd">        save_env_file(env)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># (save_env_file_defaults) Set default env values</span>
+    <span class="n">defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">defaults</span>
 
     <span class="c1"># (save_env_file_path) Get path of encrypted env file</span>
     <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
@@ -180,7 +186,7 @@
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">env_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">env_file</span><span class="p">:</span>
         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">encrypted</span><span class="p">,</span> <span class="n">env_file</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="load_env_file"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.load_env_file">[docs]</a><span class="k">def</span> <span class="nf">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="load_env_file"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.load_env_file">[docs]</a><span class="k">def</span> <span class="nf">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{}):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a saved environment file from :func:`msdss_base_dotenv.core.save_env_file`.</span>
 <span class="sd">    </span>
@@ -190,6 +196,8 @@
 <span class="sd">        Path of the environment save file.</span>
 <span class="sd">    key_path : str</span>
 <span class="sd">        Path of the key file used to unlock the save file. If None, this defaults to the package&#39;s directory.</span>
+<span class="sd">    defaults : dict</span>
+<span class="sd">        Key and value pairs representing default environment values to be loaded. These will replace ones in ``env`` if they do not exist or are unset.</span>
 <span class="sd">    </span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -209,12 +217,18 @@
 <span class="sd">        # Clear any existing env files</span>
 <span class="sd">        clear_env_file()</span>
 
-<span class="sd">        # Create default key value env and save it</span>
+<span class="sd">        # Create key value env and save it with defaults</span>
 <span class="sd">        env = dict(user=&#39;msdss&#39;, password=&#39;msdss123&#39;)</span>
-<span class="sd">        save_env_file(env)</span>
+<span class="sd">        defaults = dict(database=&#39;postgres&#39;, port=&#39;5432&#39;)</span>
+<span class="sd">        save_env_file(env, defaults=defaults)</span>
 
 <span class="sd">        # Load the saved env file </span>
-<span class="sd">        env = load_env_file()</span>
+<span class="sd">        loaded_env = load_env_file()</span>
+
+<span class="sd">        # Display the results</span>
+<span class="sd">        print(&#39;env: &#39; + str(env))</span>
+<span class="sd">        print(&#39;defaults: &#39; + str(defaults))</span>
+<span class="sd">        print(&#39;loaded_env: &#39; + str(loaded_env))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="c1"># (load_env_file_path) Get path of encrypted env file</span>
@@ -234,6 +248,10 @@
     <span class="c1"># (load_env_file_decrypt) Decrypt env details</span>
     <span class="n">login</span> <span class="o">=</span> <span class="n">decrypter</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">encrypted</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">login</span><span class="p">)</span>
+
+    <span class="c1"># (save_env_file_return) Set default env values and return</span>
+    <span class="n">defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">defaults</span>
     <span class="k">return</span> <span class="n">out</span></div>
 </pre></div>
 

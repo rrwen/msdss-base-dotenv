@@ -46,7 +46,7 @@ def clear_env_file(file_path='./.env', key_path=None):
         if os.path.exists(path):
             os.remove(path)
 
-def save_env_file(env, file_path='./.env', key_path=None):
+def save_env_file(env, file_path='./.env', key_path=None, defaults={}):
     """
     Saves a login file with the connection details.
     
@@ -58,6 +58,8 @@ def save_env_file(env, file_path='./.env', key_path=None):
         Path of the encrypted environment save file. Read/write/execute permissions will be set only for the owner of this file.
     key_path : str
         Path of the key file used to unlock the save file. If ``None``, this defaults to the package's directory.
+    defaults : dict
+        Key and value pairs representing default environment values to be saved. These will replace ones in ``env`` if they do not exist or are unset.
 
     Author
     ------
@@ -78,6 +80,10 @@ def save_env_file(env, file_path='./.env', key_path=None):
         # Save the key value env to an encrypted file
         save_env_file(env)
     """
+
+    # (save_env_file_defaults) Set default env values
+    defaults.update(env)
+    env = defaults
 
     # (save_env_file_path) Get path of encrypted env file
     env_path = os.path.abspath(file_path)
@@ -100,7 +106,7 @@ def save_env_file(env, file_path='./.env', key_path=None):
     with open(env_path, 'wb') as env_file:
         pickle.dump(encrypted, env_file)
 
-def load_env_file(file_path='./.env', key_path=None):
+def load_env_file(file_path='./.env', key_path=None, defaults={}):
     """
     Loads a saved environment file from :func:`msdss_base_dotenv.core.save_env_file`.
     
@@ -110,6 +116,8 @@ def load_env_file(file_path='./.env', key_path=None):
         Path of the environment save file.
     key_path : str
         Path of the key file used to unlock the save file. If None, this defaults to the package's directory.
+    defaults : dict
+        Key and value pairs representing default environment values to be loaded. These will replace ones in ``env`` if they do not exist or are unset.
     
     Returns
     -------
@@ -129,12 +137,18 @@ def load_env_file(file_path='./.env', key_path=None):
         # Clear any existing env files
         clear_env_file()
 
-        # Create default key value env and save it
+        # Create key value env and save it with defaults
         env = dict(user='msdss', password='msdss123')
-        save_env_file(env)
+        defaults = dict(database='postgres', port='5432')
+        save_env_file(env, defaults=defaults)
 
         # Load the saved env file 
-        env = load_env_file()
+        loaded_env = load_env_file()
+
+        # Display the results
+        print('env: ' + str(env))
+        print('defaults: ' + str(defaults))
+        print('loaded_env: ' + str(loaded_env))
     """
     
     # (load_env_file_path) Get path of encrypted env file
@@ -154,4 +168,8 @@ def load_env_file(file_path='./.env', key_path=None):
     # (load_env_file_decrypt) Decrypt env details
     login = decrypter.decrypt(encrypted).decode('utf-8')
     out = json.loads(login)
+
+    # (save_env_file_return) Set default env values and return
+    defaults.update(out)
+    out = defaults
     return out
