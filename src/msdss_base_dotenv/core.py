@@ -1,3 +1,4 @@
+import copy
 import json
 import os
 import pickle
@@ -45,6 +46,50 @@ def clear_env_file(file_path='./.env', key_path=None):
     for path in [env_path, key_path]:
         if os.path.exists(path):
             os.remove(path)
+
+def del_env_var(key, file_path='./.env', key_path=None):
+    """
+    Deletes an environmental variable using a file from :func:`msdss_base_dotenv.core.save_env_file`.
+    
+    Parameters
+    ----------
+    key : str
+        The name of the environmental variable to be deleted.
+    file_path : str
+        Path of the environment save file.
+    key_path : str
+        Path of the key file used to unlock the save file. If None, this defaults to the package's directory.
+    
+    Author
+    ------
+    Richard Wen <rrwen.dev@gmail.com>
+    
+    Example
+    -------
+    .. jupyter-execute::
+
+        from msdss_base_dotenv.core import save_env_file, load_env_file, clear_env_file, del_env_var
+        
+        # Clear any existing env files
+        clear_env_file()
+
+        # Create key value env and save it
+        env = dict(user='msdss', password='msdss123')
+        save_env_file(env)
+
+        # Remove the password var from the saved env
+        del_env_var('password')
+
+        # Load the saved env after the removal
+        loaded_env = load_env_file()
+
+        # Display the results
+        print('env: ' + str(env))
+        print('loaded_env: ' + str(loaded_env))
+    """
+    env = load_env_file(file_path=file_path, key_path=key_path)
+    del env[key]
+    save_env_file(env, file_path=file_path, key_path=key_path)
 
 def env_exists(file_path='./.env', key_path=None):
     """
@@ -158,12 +203,12 @@ def load_env_file(file_path='./.env', key_path=None, defaults={}):
         encrypted = pickle.load(env_file)
     
     # (load_env_file_decrypt) Decrypt env details
-    login = decrypter.decrypt(encrypted).decode('utf-8')
-    out = json.loads(login)
+    decrypted = decrypter.decrypt(encrypted).decode('utf-8')
+    env_json = json.loads(decrypted)
 
     # (save_env_file_return) Set default env values and return
-    defaults.update(out)
-    out = defaults
+    out = copy.deepcopy(defaults)
+    out.update(env_json)
     return out
 
 def save_env_file(env, file_path='./.env', key_path=None, defaults={}):
@@ -202,8 +247,9 @@ def save_env_file(env, file_path='./.env', key_path=None, defaults={}):
     """
 
     # (save_env_file_defaults) Set default env values
+    defaults = copy.deepcopy(defaults)
     defaults.update(env)
-    env = defaults
+    env = copy.deepcopy(defaults)
 
     # (save_env_file_path) Get path of encrypted env file
     env_path = os.path.abspath(file_path)
@@ -225,3 +271,50 @@ def save_env_file(env, file_path='./.env', key_path=None, defaults={}):
     encrypted = encrypter.encrypt(bytes(json.dumps(env), encoding = 'utf-8'))
     with open(env_path, 'wb') as env_file:
         pickle.dump(encrypted, env_file)
+
+def set_env_var(key, value, file_path='./.env', key_path=None):
+    """
+    Sets an environmental variable using a file from :func:`msdss_base_dotenv.core.save_env_file`.
+    
+    Parameters
+    ----------
+    key : str
+        The name of the environmental variable to be set.
+    value : str
+        The value of the environmental variable to be set.
+    file_path : str
+        Path of the environment save file.
+    key_path : str
+        Path of the key file used to unlock the save file. If None, this defaults to the package's directory.
+    
+    Author
+    ------
+    Richard Wen <rrwen.dev@gmail.com>
+    
+    Example
+    -------
+    .. jupyter-execute::
+
+        from msdss_base_dotenv.core import save_env_file, load_env_file, clear_env_file, set_env_var
+        
+        # Clear any existing env files
+        clear_env_file()
+
+        # Create key value env and save it
+        env = dict(user='msdss')
+        save_env_file(env)
+
+        # Add/set a password var to the saved env
+        set_env_var('user', 'MSDSS')
+        set_env_var('password', 'msdss123')
+
+        # Load the saved env after the addition
+        loaded_env = load_env_file()
+
+        # Display the results
+        print('env: ' + str(env))
+        print('loaded_env: ' + str(loaded_env))
+    """
+    env = load_env_file(file_path=file_path, key_path=key_path)
+    env[key] = value
+    save_env_file(env, file_path=file_path, key_path=key_path)

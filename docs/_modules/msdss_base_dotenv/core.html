@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>msdss_base_dotenv.core &mdash; msdss_base_dotenv 0.0.1 documentation</title>
+  <title>msdss_base_dotenv.core &mdash; msdss_base_dotenv 0.0.2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> msdss_base_dotenv
           </a>
               <div class="version">
-                0.0.1
+                0.0.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -78,7 +78,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for msdss_base_dotenv.core</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 
@@ -125,6 +126,50 @@
     <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span><span class="n">env_path</span><span class="p">,</span> <span class="n">key_path</span><span class="p">]:</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="del_env_var"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.del_env_var">[docs]</a><span class="k">def</span> <span class="nf">del_env_var</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Deletes an environmental variable using a file from :func:`msdss_base_dotenv.core.save_env_file`.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    key : str</span>
+<span class="sd">        The name of the environmental variable to be deleted.</span>
+<span class="sd">    file_path : str</span>
+<span class="sd">        Path of the environment save file.</span>
+<span class="sd">    key_path : str</span>
+<span class="sd">        Path of the key file used to unlock the save file. If None, this defaults to the package&#39;s directory.</span>
+<span class="sd">    </span>
+<span class="sd">    Author</span>
+<span class="sd">    ------</span>
+<span class="sd">    Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
+<span class="sd">    </span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    .. jupyter-execute::</span>
+
+<span class="sd">        from msdss_base_dotenv.core import save_env_file, load_env_file, clear_env_file, del_env_var</span>
+<span class="sd">        </span>
+<span class="sd">        # Clear any existing env files</span>
+<span class="sd">        clear_env_file()</span>
+
+<span class="sd">        # Create key value env and save it</span>
+<span class="sd">        env = dict(user=&#39;msdss&#39;, password=&#39;msdss123&#39;)</span>
+<span class="sd">        save_env_file(env)</span>
+
+<span class="sd">        # Remove the password var from the saved env</span>
+<span class="sd">        del_env_var(&#39;password&#39;)</span>
+
+<span class="sd">        # Load the saved env after the removal</span>
+<span class="sd">        loaded_env = load_env_file()</span>
+
+<span class="sd">        # Display the results</span>
+<span class="sd">        print(&#39;env: &#39; + str(env))</span>
+<span class="sd">        print(&#39;loaded_env: &#39; + str(loaded_env))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">env</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="env_exists"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.env_exists">[docs]</a><span class="k">def</span> <span class="nf">env_exists</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -238,12 +283,12 @@
         <span class="n">encrypted</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">env_file</span><span class="p">)</span>
     
     <span class="c1"># (load_env_file_decrypt) Decrypt env details</span>
-    <span class="n">login</span> <span class="o">=</span> <span class="n">decrypter</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">encrypted</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">login</span><span class="p">)</span>
+    <span class="n">decrypted</span> <span class="o">=</span> <span class="n">decrypter</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">encrypted</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="n">env_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">decrypted</span><span class="p">)</span>
 
     <span class="c1"># (save_env_file_return) Set default env values and return</span>
-    <span class="n">defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="n">defaults</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">env_json</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">out</span></div>
 
 <div class="viewcode-block" id="save_env_file"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.save_env_file">[docs]</a><span class="k">def</span> <span class="nf">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{}):</span>
@@ -282,8 +327,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># (save_env_file_defaults) Set default env values</span>
+    <span class="n">defaults</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span>
     <span class="n">defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
-    <span class="n">env</span> <span class="o">=</span> <span class="n">defaults</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span>
 
     <span class="c1"># (save_env_file_path) Get path of encrypted env file</span>
     <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
@@ -305,6 +351,53 @@
     <span class="n">encrypted</span> <span class="o">=</span> <span class="n">encrypter</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">env</span><span class="p">),</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">env_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">env_file</span><span class="p">:</span>
         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">encrypted</span><span class="p">,</span> <span class="n">env_file</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="set_env_var"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.set_env_var">[docs]</a><span class="k">def</span> <span class="nf">set_env_var</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sets an environmental variable using a file from :func:`msdss_base_dotenv.core.save_env_file`.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    key : str</span>
+<span class="sd">        The name of the environmental variable to be set.</span>
+<span class="sd">    value : str</span>
+<span class="sd">        The value of the environmental variable to be set.</span>
+<span class="sd">    file_path : str</span>
+<span class="sd">        Path of the environment save file.</span>
+<span class="sd">    key_path : str</span>
+<span class="sd">        Path of the key file used to unlock the save file. If None, this defaults to the package&#39;s directory.</span>
+<span class="sd">    </span>
+<span class="sd">    Author</span>
+<span class="sd">    ------</span>
+<span class="sd">    Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
+<span class="sd">    </span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    .. jupyter-execute::</span>
+
+<span class="sd">        from msdss_base_dotenv.core import save_env_file, load_env_file, clear_env_file, set_env_var</span>
+<span class="sd">        </span>
+<span class="sd">        # Clear any existing env files</span>
+<span class="sd">        clear_env_file()</span>
+
+<span class="sd">        # Create key value env and save it</span>
+<span class="sd">        env = dict(user=&#39;msdss&#39;)</span>
+<span class="sd">        save_env_file(env)</span>
+
+<span class="sd">        # Add/set a password var to the saved env</span>
+<span class="sd">        set_env_var(&#39;user&#39;, &#39;MSDSS&#39;)</span>
+<span class="sd">        set_env_var(&#39;password&#39;, &#39;msdss123&#39;)</span>
+
+<span class="sd">        # Load the saved env after the addition</span>
+<span class="sd">        loaded_env = load_env_file()</span>
+
+<span class="sd">        # Display the results</span>
+<span class="sd">        print(&#39;env: &#39; + str(env))</span>
+<span class="sd">        print(&#39;loaded_env: &#39; + str(loaded_env))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span>
+    <span class="n">env</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

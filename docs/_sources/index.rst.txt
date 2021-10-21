@@ -26,7 +26,7 @@ After installing the package, use in Python via functions:
 
 .. jupyter-execute::
 
-   from msdss_base_dotenv import save_env_file, load_env_file, clear_env_file, env_exists
+   from msdss_base_dotenv import *
 
    # Clear existing env files
    clear_env_file()
@@ -39,6 +39,12 @@ After installing the package, use in Python via functions:
 
    # Save the environmental variables as an encrypted file
    save_env_file(env, file_path='./.env')
+
+   # Remove the password variable
+   del_env_var('password')
+
+   # Set a secret variable
+   set_env_var('secret', 'some-secret')
 
    # Load the encrypted environmental variables
    loaded_env = load_env_file(file_path='./.env')
