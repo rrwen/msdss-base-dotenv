@@ -318,3 +318,50 @@ def set_env_var(key, value, file_path='./.env', key_path=None):
     env = load_env_file(file_path=file_path, key_path=key_path)
     env[key] = value
     save_env_file(env, file_path=file_path, key_path=key_path)
+
+def update_env_file(updated_env, file_path='./.env', key_path=None):
+    """
+    Updates environmental variables using a file from :func:`msdss_base_dotenv.core.save_env_file`.
+    
+    Parameters
+    ----------
+    updated_env : dict
+        A dictionary of environmental key value pairs to update the env at ``file_path`` with.
+
+        This will add new keys from ``updated_env`` if they do not exist, and replace values if keys do exist.
+    file_path : str
+        Path of the environment save file.
+    key_path : str
+        Path of the key file used to unlock the save file. If None, this defaults to the package's directory.
+    
+    Author
+    ------
+    Richard Wen <rrwen.dev@gmail.com>
+    
+    Example
+    -------
+    .. jupyter-execute::
+
+        from msdss_base_dotenv.core import save_env_file, load_env_file, clear_env_file, update_env_file
+        
+        # Clear any existing env files
+        clear_env_file()
+
+        # Create key value env and save it
+        env = dict(user='msdss', secret='some-secret')
+        save_env_file(env)
+
+        # Update the env with a new user and password
+        updated_env = dict(user='MSDSS', password='msdss123')
+        update_env_file(updated_env)
+
+        # Load the saved env after the addition
+        loaded_env = load_env_file()
+
+        # Display the results
+        print('env: ' + str(env))
+        print('loaded_env: ' + str(loaded_env))
+    """
+    env = load_env_file(file_path=file_path, key_path=key_path)
+    env.update(updated_env)
+    save_env_file(env, file_path=file_path, key_path=key_path)

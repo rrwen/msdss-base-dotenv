@@ -28,7 +28,7 @@ author = 'Richard Wen rrwen.dev@gmail.com'
 project = 'msdss_base_dotenv'
 description = 'Environmental file management for the Modular Spatial Decision Support Systems (MSDSS) framework'
 copyright = str(datetime.now().year) + ', ' + 'Richard Wen'
-version = '0.0.2'
+version = '0.0.3'
 release = version
 
 # -- General configuration ------------------------------------------------
