@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>msdss-base-dotenv &mdash; msdss_base_dotenv 0.0.1 documentation</title>
+  <title>msdss-base-dotenv &mdash; msdss_base_dotenv 0.0.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
@@ -34,7 +34,7 @@
             <a href="#" class="icon icon-home"> msdss_base_dotenv
           </a>
               <div class="version">
-                0.0.1
+                0.0.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -104,35 +104,45 @@
 <p>After installing the package, use in Python via functions:</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">msdss_base_dotenv</span> <span class="kn">import</span> <span class="n">save_env_file</span><span class="p">,</span> <span class="n">load_env_file</span><span class="p">,</span> <span class="n">clear_env_file</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">msdss_base_dotenv</span> <span class="kn">import</span> <span class="n">save_env_file</span><span class="p">,</span> <span class="n">load_env_file</span><span class="p">,</span> <span class="n">clear_env_file</span><span class="p">,</span> <span class="n">env_exists</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="c1"># Clear existing env files</span>
 <span class="linenos"> 4</span><span class="n">clear_env_file</span><span class="p">()</span>
 <span class="linenos"> 5</span>
-<span class="linenos"> 6</span><span class="c1"># Create key-value environmental variables to save</span>
-<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="c1"># Check if environment exists</span>
+<span class="linenos"> 7</span><span class="n">exists_before</span> <span class="o">=</span> <span class="n">env_exists</span><span class="p">()</span>
 <span class="linenos"> 8</span>
-<span class="linenos"> 9</span><span class="c1"># Save the environmental variables as an encrypted file</span>
-<span class="linenos">10</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">)</span>
+<span class="linenos"> 9</span><span class="c1"># Create key-value environmental variables to save</span>
+<span class="linenos">10</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
 <span class="linenos">11</span>
-<span class="linenos">12</span><span class="c1"># Load the encrypted environmental variables</span>
-<span class="linenos">13</span><span class="n">loaded_env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">)</span>
+<span class="linenos">12</span><span class="c1"># Save the environmental variables as an encrypted file</span>
+<span class="linenos">13</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">)</span>
 <span class="linenos">14</span>
-<span class="linenos">15</span><span class="c1"># Load with defaults</span>
-<span class="linenos">16</span><span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="s1">&#39;5432&#39;</span><span class="p">)</span>
-<span class="linenos">17</span><span class="n">loaded_env_defaults</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">)</span>
-<span class="linenos">18</span>
-<span class="linenos">19</span><span class="c1"># Display the results</span>
-<span class="linenos">20</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;env: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">env</span><span class="p">))</span>
-<span class="linenos">21</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loaded_env: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loaded_env</span><span class="p">))</span>
-<span class="linenos">22</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loaded_env_defaults: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loaded_env_defaults</span><span class="p">))</span>
+<span class="linenos">15</span><span class="c1"># Load the encrypted environmental variables</span>
+<span class="linenos">16</span><span class="n">loaded_env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">)</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1"># Load with defaults</span>
+<span class="linenos">19</span><span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="s1">&#39;5432&#39;</span><span class="p">)</span>
+<span class="linenos">20</span><span class="n">loaded_env_defaults</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">)</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="c1"># Check if environment exists after creation</span>
+<span class="linenos">23</span><span class="n">exists_after</span> <span class="o">=</span> <span class="n">env_exists</span><span class="p">()</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="c1"># Display the results</span>
+<span class="linenos">26</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;exists_before: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">exists_before</span><span class="p">))</span>
+<span class="linenos">27</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;env: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">env</span><span class="p">))</span>
+<span class="linenos">28</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loaded_env: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loaded_env</span><span class="p">))</span>
+<span class="linenos">29</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loaded_env_defaults: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loaded_env_defaults</span><span class="p">))</span>
+<span class="linenos">30</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;exists_after: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">exists_after</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>exists_before: False
+env: {&#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
 loaded_env: {&#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
 loaded_env_defaults: {&#39;database&#39;: &#39;postgres&#39;, &#39;port&#39;: &#39;5432&#39;, &#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
+exists_after: True
 </pre></div>
 </div>
 </div>
@@ -171,6 +181,59 @@ loaded_env_defaults: {&#39;database&#39;: &#39;postgres&#39;, &#39;port&#39;: &#
 </div>
 </div>
 <div class="cell_output docutils container">
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="msdss_base_dotenv.core.env_exists">
+<span class="sig-prename descclassname"><span class="pre">msdss_base_dotenv.core.</span></span><span class="sig-name descname"><span class="pre">env_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./.env'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msdss_base_dotenv/core.html#env_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.env_exists" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if an environment exists using a saved environment file from <a class="reference internal" href="#msdss_base_dotenv.core.save_env_file" title="msdss_base_dotenv.core.save_env_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">msdss_base_dotenv.core.save_env_file()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Path of the environment save file.</p></li>
+<li><p><strong>key_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Path of the key file used to unlock the save file. If None, this defaults to the package’s directory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">file_path</span></code> and <code class="docutils literal notranslate"><span class="pre">key_path</span></code> exist, which define whether the env exists.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+<p class="rubric">Author</p>
+<p>Richard Wen &lt;<a class="reference external" href="mailto:rrwen&#46;dev&#37;&#52;&#48;gmail&#46;com">rrwen<span>&#46;</span>dev<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p>
+<p class="rubric">Example</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">msdss_base_dotenv.core</span> <span class="kn">import</span> <span class="n">save_env_file</span><span class="p">,</span> <span class="n">load_env_file</span><span class="p">,</span> <span class="n">clear_env_file</span><span class="p">,</span> <span class="n">env_exists</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="c1"># Clear any existing env files</span>
+<span class="linenos"> 4</span><span class="n">clear_env_file</span><span class="p">()</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="c1"># Check if env exists</span>
+<span class="linenos"> 7</span><span class="n">exists_before</span> <span class="o">=</span> <span class="n">env_exists</span><span class="p">()</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="c1"># Create key value env and save it</span>
+<span class="linenos">10</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="c1"># Check if env exists</span>
+<span class="linenos">14</span><span class="n">exists_after</span> <span class="o">=</span> <span class="n">env_exists</span><span class="p">()</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="c1"># Display the results</span>
+<span class="linenos">17</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;exists_before: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">exists_before</span><span class="p">))</span>
+<span class="linenos">18</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;exists_after: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">exists_after</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>exists_before: False
+exists_after: True
+</pre></div>
+</div>
 </div>
 </div>
 </dd></dl>

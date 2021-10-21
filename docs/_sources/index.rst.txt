@@ -26,10 +26,13 @@ After installing the package, use in Python via functions:
 
 .. jupyter-execute::
 
-   from msdss_base_dotenv import save_env_file, load_env_file, clear_env_file
+   from msdss_base_dotenv import save_env_file, load_env_file, clear_env_file, env_exists
 
    # Clear existing env files
    clear_env_file()
+
+   # Check if environment exists
+   exists_before = env_exists()
 
    # Create key-value environmental variables to save
    env = dict(user='msdss', password='msdss123')
@@ -44,10 +47,15 @@ After installing the package, use in Python via functions:
    defaults = dict(database='postgres', port='5432')
    loaded_env_defaults = load_env_file('./.env', defaults=defaults)
 
+   # Check if environment exists after creation
+   exists_after = env_exists()
+
    # Display the results
+   print('exists_before: ' + str(exists_before))
    print('env: ' + str(env))
    print('loaded_env: ' + str(loaded_env))
    print('loaded_env_defaults: ' + str(loaded_env_defaults))
+   print('exists_after: ' + str(exists_after))
 
 API Reference
 =============

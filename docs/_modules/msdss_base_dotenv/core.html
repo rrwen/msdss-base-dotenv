@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>msdss_base_dotenv.core &mdash; msdss_base_dotenv 0.0.0 documentation</title>
+  <title>msdss_base_dotenv.core &mdash; msdss_base_dotenv 0.0.1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> msdss_base_dotenv
           </a>
               <div class="version">
-                0.0.0
+                0.0.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -126,65 +126,57 @@
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="save_env_file"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.save_env_file">[docs]</a><span class="k">def</span> <span class="nf">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{}):</span>
+<div class="viewcode-block" id="env_exists"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.env_exists">[docs]</a><span class="k">def</span> <span class="nf">env_exists</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Saves a login file with the connection details.</span>
+<span class="sd">    Checks if an environment exists using a saved environment file from :func:`msdss_base_dotenv.core.save_env_file`.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    env : dict</span>
-<span class="sd">        Key and value pairs representing environment values to be saved.</span>
 <span class="sd">    file_path : str</span>
-<span class="sd">        Path of the encrypted environment save file. Read/write/execute permissions will be set only for the owner of this file.</span>
+<span class="sd">        Path of the environment save file.</span>
 <span class="sd">    key_path : str</span>
-<span class="sd">        Path of the key file used to unlock the save file. If ``None``, this defaults to the package&#39;s directory.</span>
-<span class="sd">    defaults : dict</span>
-<span class="sd">        Key and value pairs representing default environment values to be saved. These will replace ones in ``env`` if they do not exist or are unset.</span>
-
+<span class="sd">        Path of the key file used to unlock the save file. If None, this defaults to the package&#39;s directory.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">        Whether or not ``file_path`` and ``key_path`` exist, which define whether the env exists.</span>
+<span class="sd">    </span>
 <span class="sd">    Author</span>
 <span class="sd">    ------</span>
 <span class="sd">    Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
-
+<span class="sd">    </span>
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
 <span class="sd">    .. jupyter-execute::</span>
 
-<span class="sd">        from msdss_base_dotenv.core import save_env_file, load_env_file, clear_env_file</span>
+<span class="sd">        from msdss_base_dotenv.core import save_env_file, load_env_file, clear_env_file, env_exists</span>
 <span class="sd">        </span>
 <span class="sd">        # Clear any existing env files</span>
 <span class="sd">        clear_env_file()</span>
 
-<span class="sd">        # Create default key value env</span>
-<span class="sd">        env = dict(user=&#39;msdss&#39;, password=&#39;msdss123&#39;)</span>
+<span class="sd">        # Check if env exists</span>
+<span class="sd">        exists_before = env_exists()</span>
 
-<span class="sd">        # Save the key value env to an encrypted file</span>
+<span class="sd">        # Create key value env and save it</span>
+<span class="sd">        env = dict(user=&#39;msdss&#39;, password=&#39;msdss123&#39;)</span>
 <span class="sd">        save_env_file(env)</span>
+
+<span class="sd">        # Check if env exists</span>
+<span class="sd">        exists_after = env_exists()</span>
+
+<span class="sd">        # Display the results</span>
+<span class="sd">        print(&#39;exists_before: &#39; + str(exists_before))</span>
+<span class="sd">        print(&#39;exists_after: &#39; + str(exists_after))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># (save_env_file_defaults) Set default env values</span>
-    <span class="n">defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
-    <span class="n">env</span> <span class="o">=</span> <span class="n">defaults</span>
-
-    <span class="c1"># (save_env_file_path) Get path of encrypted env file</span>
+    <span class="c1"># (env_exists_file_path) Get path of encrypted env file</span>
     <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
     <span class="n">key_path</span> <span class="o">=</span> <span class="n">key_path</span> <span class="k">if</span> <span class="n">key_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">__PATH__</span><span class="p">,</span> <span class="s1">&#39;.env.key&#39;</span><span class="p">)</span>
 
-    <span class="c1"># (save_env_file_key) Obtain key if exists or create one if not</span>
-    <span class="n">key_exists</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">key_path</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">key_exists</span><span class="p">:</span> <span class="c1"># read key</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">key_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">key_file</span><span class="p">:</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">key_file</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span> <span class="c1"># create key</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">key_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">key_file</span><span class="p">:</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="n">Fernet</span><span class="o">.</span><span class="n">generate_key</span><span class="p">()</span>
-            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">key_file</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">key_path</span><span class="p">,</span> <span class="mo">0o700</span><span class="p">)</span> <span class="c1"># set read/write/execute only for owner</span>
-    <span class="n">encrypter</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-    <span class="c1"># (save_env_file_encrypt) Encrypt env file</span>
-    <span class="n">encrypted</span> <span class="o">=</span> <span class="n">encrypter</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">env</span><span class="p">),</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">env_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">env_file</span><span class="p">:</span>
-        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">encrypted</span><span class="p">,</span> <span class="n">env_file</span><span class="p">)</span></div>
+    <span class="c1"># (env_exists_return) Check if env file and key exists</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">env_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">key_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
 
 <div class="viewcode-block" id="load_env_file"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.load_env_file">[docs]</a><span class="k">def</span> <span class="nf">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{}):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -253,6 +245,66 @@
     <span class="n">defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">defaults</span>
     <span class="k">return</span> <span class="n">out</span></div>
+
+<div class="viewcode-block" id="save_env_file"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.save_env_file">[docs]</a><span class="k">def</span> <span class="nf">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Saves a login file with the connection details.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    env : dict</span>
+<span class="sd">        Key and value pairs representing environment values to be saved.</span>
+<span class="sd">    file_path : str</span>
+<span class="sd">        Path of the encrypted environment save file. Read/write/execute permissions will be set only for the owner of this file.</span>
+<span class="sd">    key_path : str</span>
+<span class="sd">        Path of the key file used to unlock the save file. If ``None``, this defaults to the package&#39;s directory.</span>
+<span class="sd">    defaults : dict</span>
+<span class="sd">        Key and value pairs representing default environment values to be saved. These will replace ones in ``env`` if they do not exist or are unset.</span>
+
+<span class="sd">    Author</span>
+<span class="sd">    ------</span>
+<span class="sd">    Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    .. jupyter-execute::</span>
+
+<span class="sd">        from msdss_base_dotenv.core import save_env_file, load_env_file, clear_env_file</span>
+<span class="sd">        </span>
+<span class="sd">        # Clear any existing env files</span>
+<span class="sd">        clear_env_file()</span>
+
+<span class="sd">        # Create default key value env</span>
+<span class="sd">        env = dict(user=&#39;msdss&#39;, password=&#39;msdss123&#39;)</span>
+
+<span class="sd">        # Save the key value env to an encrypted file</span>
+<span class="sd">        save_env_file(env)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># (save_env_file_defaults) Set default env values</span>
+    <span class="n">defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">defaults</span>
+
+    <span class="c1"># (save_env_file_path) Get path of encrypted env file</span>
+    <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">key_path</span> <span class="o">=</span> <span class="n">key_path</span> <span class="k">if</span> <span class="n">key_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">__PATH__</span><span class="p">,</span> <span class="s1">&#39;.env.key&#39;</span><span class="p">)</span>
+
+    <span class="c1"># (save_env_file_key) Obtain key if exists or create one if not</span>
+    <span class="n">key_exists</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">key_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">key_exists</span><span class="p">:</span> <span class="c1"># read key</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">key_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">key_file</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">key_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># create key</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">key_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">key_file</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">Fernet</span><span class="o">.</span><span class="n">generate_key</span><span class="p">()</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">key_file</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">key_path</span><span class="p">,</span> <span class="mo">0o700</span><span class="p">)</span> <span class="c1"># set read/write/execute only for owner</span>
+    <span class="n">encrypter</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="c1"># (save_env_file_encrypt) Encrypt env file</span>
+    <span class="n">encrypted</span> <span class="o">=</span> <span class="n">encrypter</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">env</span><span class="p">),</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">env_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">env_file</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">encrypted</span><span class="p">,</span> <span class="n">env_file</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
