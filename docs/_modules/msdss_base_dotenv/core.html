@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>msdss_base_dotenv.core &mdash; msdss_base_dotenv 0.0.3 documentation</title>
+  <title>msdss_base_dotenv.core &mdash; msdss_base_dotenv 0.1.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> msdss_base_dotenv
           </a>
               <div class="version">
-                0.0.3
+                0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -46,12 +46,17 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">msdss-base-dotenv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html#quick-start">Quick Start</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html#quick-start">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html#usage">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#saving-and-loading-environment-variables">Saving and Loading Environment Variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../index.html#editing-environment-variables">Editing Environment Variables</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html#module-msdss_base_dotenv.core">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html#api-reference">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#module-msdss_base_dotenv.core">Core Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html#module-msdss_base_dotenv.cli">Command Line Interface</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html#contact">Contact</a><ul class="simple">
 </ul>
 </li>
@@ -113,7 +118,7 @@
 <span class="sd">        from msdss_base_dotenv.core import save_env_file, load_env_file, clear_env_file</span>
 
 <span class="sd">        # Create default key value env</span>
-<span class="sd">        env = dict(user=&#39;msdss&#39;, password=&#39;msdss123&#39;)</span>
+<span class="sd">        env = dict(USER=&#39;msdss&#39;, PASSWORD=&#39;msdss123&#39;)</span>
 
 <span class="sd">        # Save the key value env to an encrypted file</span>
 <span class="sd">        save_env_file(env)</span>
@@ -131,13 +136,13 @@
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="del_env_var"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.del_env_var">[docs]</a><span class="k">def</span> <span class="nf">del_env_var</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="del_env_var"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.del_env_var">[docs]</a><span class="k">def</span> <span class="nf">del_env_var</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Deletes an environmental variable using a file from :func:`msdss_base_dotenv.core.save_env_file`.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    key : str</span>
+<span class="sd">    name : str</span>
 <span class="sd">        The name of the environmental variable to be deleted.</span>
 <span class="sd">    file_path : str</span>
 <span class="sd">        Path of the environment save file.</span>
@@ -158,11 +163,11 @@
 <span class="sd">        clear_env_file()</span>
 
 <span class="sd">        # Create key value env and save it</span>
-<span class="sd">        env = dict(user=&#39;msdss&#39;, password=&#39;msdss123&#39;)</span>
+<span class="sd">        env = dict(USER=&#39;msdss&#39;, PASSWORD=&#39;msdss123&#39;)</span>
 <span class="sd">        save_env_file(env)</span>
 
 <span class="sd">        # Remove the password var from the saved env</span>
-<span class="sd">        del_env_var(&#39;password&#39;)</span>
+<span class="sd">        del_env_var(&#39;PASSWORD&#39;)</span>
 
 <span class="sd">        # Load the saved env after the removal</span>
 <span class="sd">        loaded_env = load_env_file()</span>
@@ -172,7 +177,7 @@
 <span class="sd">        print(&#39;loaded_env: &#39; + str(loaded_env))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span>
-    <span class="k">del</span> <span class="n">env</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">del</span> <span class="n">env</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
     <span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="env_exists"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.env_exists">[docs]</a><span class="k">def</span> <span class="nf">env_exists</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -208,7 +213,7 @@
 <span class="sd">        exists_before = env_exists()</span>
 
 <span class="sd">        # Create key value env and save it</span>
-<span class="sd">        env = dict(user=&#39;msdss&#39;, password=&#39;msdss123&#39;)</span>
+<span class="sd">        env = dict(USER=&#39;msdss&#39;, PASSWORD=&#39;msdss123&#39;)</span>
 <span class="sd">        save_env_file(env)</span>
 
 <span class="sd">        # Check if env exists</span>
@@ -259,8 +264,8 @@
 <span class="sd">        clear_env_file()</span>
 
 <span class="sd">        # Create key value env and save it with defaults</span>
-<span class="sd">        env = dict(user=&#39;msdss&#39;, password=&#39;msdss123&#39;)</span>
-<span class="sd">        defaults = dict(database=&#39;postgres&#39;, port=&#39;5432&#39;)</span>
+<span class="sd">        env = dict(USER=&#39;msdss&#39;, PASSWORD=&#39;msdss123&#39;)</span>
+<span class="sd">        defaults = dict(DATABASE=&#39;postgres&#39;, PORT=&#39;5432&#39;)</span>
 <span class="sd">        save_env_file(env, defaults=defaults)</span>
 
 <span class="sd">        # Load the saved env file </span>
@@ -324,7 +329,7 @@
 <span class="sd">        clear_env_file()</span>
 
 <span class="sd">        # Create default key value env</span>
-<span class="sd">        env = dict(user=&#39;msdss&#39;, password=&#39;msdss123&#39;)</span>
+<span class="sd">        env = dict(USER=&#39;msdss&#39;, PASSWORD=&#39;msdss123&#39;)</span>
 
 <span class="sd">        # Save the key value env to an encrypted file</span>
 <span class="sd">        save_env_file(env)</span>
@@ -356,13 +361,13 @@
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">env_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">env_file</span><span class="p">:</span>
         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">encrypted</span><span class="p">,</span> <span class="n">env_file</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="set_env_var"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.set_env_var">[docs]</a><span class="k">def</span> <span class="nf">set_env_var</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="set_env_var"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.set_env_var">[docs]</a><span class="k">def</span> <span class="nf">set_env_var</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sets an environmental variable using a file from :func:`msdss_base_dotenv.core.save_env_file`.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    key : str</span>
+<span class="sd">    name : str</span>
 <span class="sd">        The name of the environmental variable to be set.</span>
 <span class="sd">    value : str</span>
 <span class="sd">        The value of the environmental variable to be set.</span>
@@ -385,12 +390,12 @@
 <span class="sd">        clear_env_file()</span>
 
 <span class="sd">        # Create key value env and save it</span>
-<span class="sd">        env = dict(user=&#39;msdss&#39;)</span>
+<span class="sd">        env = dict(USER=&#39;msdss&#39;)</span>
 <span class="sd">        save_env_file(env)</span>
 
 <span class="sd">        # Add/set a password var to the saved env</span>
-<span class="sd">        set_env_var(&#39;user&#39;, &#39;MSDSS&#39;)</span>
-<span class="sd">        set_env_var(&#39;password&#39;, &#39;msdss123&#39;)</span>
+<span class="sd">        set_env_var(&#39;USER&#39;, &#39;MSDSS&#39;)</span>
+<span class="sd">        set_env_var(&#39;PASSWORD&#39;, &#39;msdss123&#39;)</span>
 
 <span class="sd">        # Load the saved env after the addition</span>
 <span class="sd">        loaded_env = load_env_file()</span>
@@ -400,7 +405,7 @@
 <span class="sd">        print(&#39;loaded_env: &#39; + str(loaded_env))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span>
-    <span class="n">env</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="n">env</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
     <span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="update_env_file"><a class="viewcode-back" href="../../index.html#msdss_base_dotenv.core.update_env_file">[docs]</a><span class="k">def</span> <span class="nf">update_env_file</span><span class="p">(</span><span class="n">updated_env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -432,11 +437,11 @@
 <span class="sd">        clear_env_file()</span>
 
 <span class="sd">        # Create key value env and save it</span>
-<span class="sd">        env = dict(user=&#39;msdss&#39;, secret=&#39;some-secret&#39;)</span>
+<span class="sd">        env = dict(USER=&#39;msdss&#39;, SECRET=&#39;some-secret&#39;)</span>
 <span class="sd">        save_env_file(env)</span>
 
 <span class="sd">        # Update the env with a new user and password</span>
-<span class="sd">        updated_env = dict(user=&#39;MSDSS&#39;, password=&#39;msdss123&#39;)</span>
+<span class="sd">        updated_env = dict(USER=&#39;MSDSS&#39;, PASSWORD=&#39;msdss123&#39;)</span>
 <span class="sd">        update_env_file(updated_env)</span>
 
 <span class="sd">        # Load the saved env after the addition</span>

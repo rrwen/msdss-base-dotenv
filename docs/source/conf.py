@@ -28,7 +28,7 @@ author = 'Richard Wen rrwen.dev@gmail.com'
 project = 'msdss_base_dotenv'
 description = 'Environmental file management for the Modular Spatial Decision Support Systems (MSDSS) framework'
 copyright = str(datetime.now().year) + ', ' + 'Richard Wen'
-version = '0.0.3'
+version = '0.1.0'
 release = version
 
 # -- General configuration ------------------------------------------------
@@ -54,7 +54,8 @@ extensions = [
 ]
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
-    'cryptography': ('https://cryptography.io/en/latest/', None)
+    'cryptography': ('https://cryptography.io/en/latest/', None),
+    'argparse': ('https://docs.python.org/3/library/argparse/', None)
 }
 napoleon_custom_sections = ['Author', 'Authors']
 napoleon_include_private_with_doc = True

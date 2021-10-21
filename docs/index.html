@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>msdss-base-dotenv &mdash; msdss_base_dotenv 0.0.3 documentation</title>
+  <title>msdss-base-dotenv &mdash; msdss_base_dotenv 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
@@ -34,7 +34,7 @@
             <a href="#" class="icon icon-home"> msdss_base_dotenv
           </a>
               <div class="version">
-                0.0.3
+                0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -47,12 +47,17 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">msdss-base-dotenv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#quick-start">Quick Start</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#usage">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#saving-and-loading-environment-variables">Saving and Loading Environment Variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#editing-environment-variables">Editing Environment Variables</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#module-msdss_base_dotenv.core">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#api-reference">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-msdss_base_dotenv.core">Core Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-msdss_base_dotenv.cli">Command Line Interface</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="#contact">Contact</a><ul class="simple">
 </ul>
 </li>
@@ -105,7 +110,34 @@
 </section>
 <section id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline"></a></h1>
-<p>After installing the package, use in Python via functions.</p>
+<p>Initialize your env file and key in a command line terminal:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">init</span>
+</pre></div>
+</div>
+<p>Set env variables:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="nb">set</span> <span class="n">USER</span> <span class="n">msdss</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="nb">set</span> <span class="n">PASSWORD</span> <span class="n">msdss123</span>
+</pre></div>
+</div>
+<p>Remove env variables:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="nb">set</span> <span class="n">TYPO</span> <span class="n">randomtypo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="k">del</span> <span class="n">TYPO</span>
+</pre></div>
+</div>
+<p>Clear env file and key:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">clear</span>
+</pre></div>
+</div>
+<p>Get help:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="o">--</span><span class="n">help</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="nb">set</span> <span class="o">--</span><span class="n">help</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="k">del</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
+<p>This package can also be used programmatically in Python via functions.</p>
 <section id="saving-and-loading-environment-variables">
 <h2>Saving and Loading Environment Variables<a class="headerlink" href="#saving-and-loading-environment-variables" title="Permalink to this headline"></a></h2>
 <p>Create and load encrypted environment variables:</p>
@@ -120,14 +152,14 @@
 <span class="linenos"> 7</span><span class="n">exists_before</span> <span class="o">=</span> <span class="n">env_exists</span><span class="p">()</span>
 <span class="linenos"> 8</span>
 <span class="linenos"> 9</span><span class="c1"># Save encrypted env vars</span>
-<span class="linenos">10</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
 <span class="linenos">11</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">)</span>
 <span class="linenos">12</span>
 <span class="linenos">13</span><span class="c1"># Load encrypted env vars</span>
 <span class="linenos">14</span><span class="n">loaded_env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">)</span>
 <span class="linenos">15</span>
 <span class="linenos">16</span><span class="c1"># Load env vars with defaults</span>
-<span class="linenos">17</span><span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="s1">&#39;5432&#39;</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">DATABASE</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span> <span class="n">PORT</span><span class="o">=</span><span class="s1">&#39;5432&#39;</span><span class="p">)</span>
 <span class="linenos">18</span><span class="n">loaded_env_defaults</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">)</span>
 <span class="linenos">19</span>
 <span class="linenos">20</span><span class="c1"># Check if env exists after saving vars</span>
@@ -144,9 +176,9 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>exists_before: False
-env: {&#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
-loaded_env: {&#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
-loaded_env_defaults: {&#39;database&#39;: &#39;postgres&#39;, &#39;port&#39;: &#39;5432&#39;, &#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
+env: {&#39;USER&#39;: &#39;msdss&#39;, &#39;PASSWORD&#39;: &#39;msdss123&#39;}
+loaded_env: {&#39;USER&#39;: &#39;msdss&#39;, &#39;PASSWORD&#39;: &#39;msdss123&#39;}
+loaded_env_defaults: {&#39;DATABASE&#39;: &#39;postgres&#39;, &#39;PORT&#39;: &#39;5432&#39;, &#39;USER&#39;: &#39;msdss&#39;, &#39;PASSWORD&#39;: &#39;msdss123&#39;}
 exists_after: True
 </pre></div>
 </div>
@@ -164,17 +196,17 @@ exists_after: True
 <span class="linenos"> 4</span><span class="n">clear_env_file</span><span class="p">()</span>
 <span class="linenos"> 5</span>
 <span class="linenos"> 6</span><span class="c1"># Save env vars</span>
-<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
 <span class="linenos"> 8</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">)</span>
 <span class="linenos"> 9</span>
 <span class="linenos">10</span><span class="c1"># Remove the password variable</span>
-<span class="linenos">11</span><span class="n">del_env_var</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">del_env_var</span><span class="p">(</span><span class="s1">&#39;PASSWORD&#39;</span><span class="p">)</span>
 <span class="linenos">12</span>
 <span class="linenos">13</span><span class="c1"># Set a secret variable</span>
-<span class="linenos">14</span><span class="n">set_env_var</span><span class="p">(</span><span class="s1">&#39;secret&#39;</span><span class="p">,</span> <span class="s1">&#39;some-secret&#39;</span><span class="p">)</span>
+<span class="linenos">14</span><span class="n">set_env_var</span><span class="p">(</span><span class="s1">&#39;SECRET&#39;</span><span class="p">,</span> <span class="s1">&#39;some-secret&#39;</span><span class="p">)</span>
 <span class="linenos">15</span>
 <span class="linenos">16</span><span class="c1"># Update with a dict</span>
-<span class="linenos">17</span><span class="n">updated_env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="s1">&#39;5432&#39;</span><span class="p">)</span>
+<span class="linenos">17</span><span class="n">updated_env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">HOST</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">PORT</span><span class="o">=</span><span class="s1">&#39;5432&#39;</span><span class="p">)</span>
 <span class="linenos">18</span><span class="n">update_env_file</span><span class="p">(</span><span class="n">updated_env</span><span class="p">)</span>
 <span class="linenos">19</span>
 <span class="linenos">20</span><span class="c1"># Load the env vars with edits</span>
@@ -187,16 +219,18 @@ exists_after: True
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
-edited_env: {&#39;user&#39;: &#39;msdss&#39;, &#39;secret&#39;: &#39;some-secret&#39;, &#39;host&#39;: &#39;localhost&#39;, &#39;port&#39;: &#39;5432&#39;}
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;USER&#39;: &#39;msdss&#39;, &#39;PASSWORD&#39;: &#39;msdss123&#39;}
+edited_env: {&#39;USER&#39;: &#39;msdss&#39;, &#39;SECRET&#39;: &#39;some-secret&#39;, &#39;HOST&#39;: &#39;localhost&#39;, &#39;PORT&#39;: &#39;5432&#39;}
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 </section>
+<section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline"></a></h1>
 <section id="module-msdss_base_dotenv.core">
-<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-msdss_base_dotenv.core" title="Permalink to this headline"></a></h1>
+<span id="core-functions"></span><h2>Core Functions<a class="headerlink" href="#module-msdss_base_dotenv.core" title="Permalink to this headline"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.clear_env_file">
 <span class="sig-prename descclassname"><span class="pre">msdss_base_dotenv.core.</span></span><span class="sig-name descname"><span class="pre">clear_env_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./.env'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msdss_base_dotenv/core.html#clear_env_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.clear_env_file" title="Permalink to this definition"></a></dt>
@@ -217,7 +251,7 @@ edited_env: {&#39;user&#39;: &#39;msdss&#39;, &#39;secret&#39;: &#39;some-secret
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">msdss_base_dotenv.core</span> <span class="kn">import</span> <span class="n">save_env_file</span><span class="p">,</span> <span class="n">load_env_file</span><span class="p">,</span> <span class="n">clear_env_file</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="c1"># Create default key value env</span>
-<span class="linenos"> 4</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
 <span class="linenos"> 5</span>
 <span class="linenos"> 6</span><span class="c1"># Save the key value env to an encrypted file</span>
 <span class="linenos"> 7</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
@@ -234,12 +268,12 @@ edited_env: {&#39;user&#39;: &#39;msdss&#39;, &#39;secret&#39;: &#39;some-secret
 
 <dl class="py function">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.del_env_var">
-<span class="sig-prename descclassname"><span class="pre">msdss_base_dotenv.core.</span></span><span class="sig-name descname"><span class="pre">del_env_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./.env'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msdss_base_dotenv/core.html#del_env_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.del_env_var" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">msdss_base_dotenv.core.</span></span><span class="sig-name descname"><span class="pre">del_env_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./.env'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msdss_base_dotenv/core.html#del_env_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.del_env_var" title="Permalink to this definition"></a></dt>
 <dd><p>Deletes an environmental variable using a file from <a class="reference internal" href="#msdss_base_dotenv.core.save_env_file" title="msdss_base_dotenv.core.save_env_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">msdss_base_dotenv.core.save_env_file()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the environmental variable to be deleted.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the environmental variable to be deleted.</p></li>
 <li><p><strong>file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Path of the environment save file.</p></li>
 <li><p><strong>key_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Path of the key file used to unlock the save file. If None, this defaults to the package’s directory.</p></li>
 </ul>
@@ -256,11 +290,11 @@ edited_env: {&#39;user&#39;: &#39;msdss&#39;, &#39;secret&#39;: &#39;some-secret
 <span class="linenos"> 4</span><span class="n">clear_env_file</span><span class="p">()</span>
 <span class="linenos"> 5</span>
 <span class="linenos"> 6</span><span class="c1"># Create key value env and save it</span>
-<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
 <span class="linenos"> 8</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
 <span class="linenos"> 9</span>
 <span class="linenos">10</span><span class="c1"># Remove the password var from the saved env</span>
-<span class="linenos">11</span><span class="n">del_env_var</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">del_env_var</span><span class="p">(</span><span class="s1">&#39;PASSWORD&#39;</span><span class="p">)</span>
 <span class="linenos">12</span>
 <span class="linenos">13</span><span class="c1"># Load the saved env after the removal</span>
 <span class="linenos">14</span><span class="n">loaded_env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">()</span>
@@ -272,8 +306,8 @@ edited_env: {&#39;user&#39;: &#39;msdss&#39;, &#39;secret&#39;: &#39;some-secret
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
-loaded_env: {&#39;user&#39;: &#39;msdss&#39;}
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;USER&#39;: &#39;msdss&#39;, &#39;PASSWORD&#39;: &#39;msdss123&#39;}
+loaded_env: {&#39;USER&#39;: &#39;msdss&#39;}
 </pre></div>
 </div>
 </div>
@@ -312,7 +346,7 @@ loaded_env: {&#39;user&#39;: &#39;msdss&#39;}
 <span class="linenos"> 7</span><span class="n">exists_before</span> <span class="o">=</span> <span class="n">env_exists</span><span class="p">()</span>
 <span class="linenos"> 8</span>
 <span class="linenos"> 9</span><span class="c1"># Create key value env and save it</span>
-<span class="linenos">10</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
 <span class="linenos">11</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
 <span class="linenos">12</span>
 <span class="linenos">13</span><span class="c1"># Check if env exists</span>
@@ -363,8 +397,8 @@ exists_after: True
 <span class="linenos"> 4</span><span class="n">clear_env_file</span><span class="p">()</span>
 <span class="linenos"> 5</span>
 <span class="linenos"> 6</span><span class="c1"># Create key value env and save it with defaults</span>
-<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
-<span class="linenos"> 8</span><span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="s1">&#39;5432&#39;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">DATABASE</span><span class="o">=</span><span class="s1">&#39;postgres&#39;</span><span class="p">,</span> <span class="n">PORT</span><span class="o">=</span><span class="s1">&#39;5432&#39;</span><span class="p">)</span>
 <span class="linenos"> 9</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">)</span>
 <span class="linenos">10</span>
 <span class="linenos">11</span><span class="c1"># Load the saved env file</span>
@@ -378,9 +412,9 @@ exists_after: True
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
-defaults: {&#39;database&#39;: &#39;postgres&#39;, &#39;port&#39;: &#39;5432&#39;}
-loaded_env: {&#39;database&#39;: &#39;postgres&#39;, &#39;port&#39;: &#39;5432&#39;, &#39;user&#39;: &#39;msdss&#39;, &#39;password&#39;: &#39;msdss123&#39;}
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;USER&#39;: &#39;msdss&#39;, &#39;PASSWORD&#39;: &#39;msdss123&#39;}
+defaults: {&#39;DATABASE&#39;: &#39;postgres&#39;, &#39;PORT&#39;: &#39;5432&#39;}
+loaded_env: {&#39;DATABASE&#39;: &#39;postgres&#39;, &#39;PORT&#39;: &#39;5432&#39;, &#39;USER&#39;: &#39;msdss&#39;, &#39;PASSWORD&#39;: &#39;msdss123&#39;}
 </pre></div>
 </div>
 </div>
@@ -412,7 +446,7 @@ loaded_env: {&#39;database&#39;: &#39;postgres&#39;, &#39;port&#39;: &#39;5432&#
 <span class="linenos"> 4</span><span class="n">clear_env_file</span><span class="p">()</span>
 <span class="linenos"> 5</span>
 <span class="linenos"> 6</span><span class="c1"># Create default key value env</span>
-<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
 <span class="linenos"> 8</span>
 <span class="linenos"> 9</span><span class="c1"># Save the key value env to an encrypted file</span>
 <span class="linenos">10</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
@@ -426,12 +460,12 @@ loaded_env: {&#39;database&#39;: &#39;postgres&#39;, &#39;port&#39;: &#39;5432&#
 
 <dl class="py function">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.set_env_var">
-<span class="sig-prename descclassname"><span class="pre">msdss_base_dotenv.core.</span></span><span class="sig-name descname"><span class="pre">set_env_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./.env'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msdss_base_dotenv/core.html#set_env_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.set_env_var" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">msdss_base_dotenv.core.</span></span><span class="sig-name descname"><span class="pre">set_env_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./.env'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/msdss_base_dotenv/core.html#set_env_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.set_env_var" title="Permalink to this definition"></a></dt>
 <dd><p>Sets an environmental variable using a file from <a class="reference internal" href="#msdss_base_dotenv.core.save_env_file" title="msdss_base_dotenv.core.save_env_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">msdss_base_dotenv.core.save_env_file()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the environmental variable to be set.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the environmental variable to be set.</p></li>
 <li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The value of the environmental variable to be set.</p></li>
 <li><p><strong>file_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Path of the environment save file.</p></li>
 <li><p><strong>key_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Path of the key file used to unlock the save file. If None, this defaults to the package’s directory.</p></li>
@@ -449,12 +483,12 @@ loaded_env: {&#39;database&#39;: &#39;postgres&#39;, &#39;port&#39;: &#39;5432&#
 <span class="linenos"> 4</span><span class="n">clear_env_file</span><span class="p">()</span>
 <span class="linenos"> 5</span>
 <span class="linenos"> 6</span><span class="c1"># Create key value env and save it</span>
-<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">)</span>
 <span class="linenos"> 8</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
 <span class="linenos"> 9</span>
 <span class="linenos">10</span><span class="c1"># Add/set a password var to the saved env</span>
-<span class="linenos">11</span><span class="n">set_env_var</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;MSDSS&#39;</span><span class="p">)</span>
-<span class="linenos">12</span><span class="n">set_env_var</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">set_env_var</span><span class="p">(</span><span class="s1">&#39;USER&#39;</span><span class="p">,</span> <span class="s1">&#39;MSDSS&#39;</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">set_env_var</span><span class="p">(</span><span class="s1">&#39;PASSWORD&#39;</span><span class="p">,</span> <span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
 <span class="linenos">13</span>
 <span class="linenos">14</span><span class="c1"># Load the saved env after the addition</span>
 <span class="linenos">15</span><span class="n">loaded_env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">()</span>
@@ -466,8 +500,8 @@ loaded_env: {&#39;database&#39;: &#39;postgres&#39;, &#39;port&#39;: &#39;5432&#
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;user&#39;: &#39;msdss&#39;}
-loaded_env: {&#39;user&#39;: &#39;MSDSS&#39;, &#39;password&#39;: &#39;msdss123&#39;}
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;USER&#39;: &#39;msdss&#39;}
+loaded_env: {&#39;USER&#39;: &#39;MSDSS&#39;, &#39;PASSWORD&#39;: &#39;msdss123&#39;}
 </pre></div>
 </div>
 </div>
@@ -500,11 +534,11 @@ loaded_env: {&#39;user&#39;: &#39;MSDSS&#39;, &#39;password&#39;: &#39;msdss123&
 <span class="linenos"> 4</span><span class="n">clear_env_file</span><span class="p">()</span>
 <span class="linenos"> 5</span>
 <span class="linenos"> 6</span><span class="c1"># Create key value env and save it</span>
-<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">secret</span><span class="o">=</span><span class="s1">&#39;some-secret&#39;</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">&#39;msdss&#39;</span><span class="p">,</span> <span class="n">SECRET</span><span class="o">=</span><span class="s1">&#39;some-secret&#39;</span><span class="p">)</span>
 <span class="linenos"> 8</span><span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
 <span class="linenos"> 9</span>
 <span class="linenos">10</span><span class="c1"># Update the env with a new user and password</span>
-<span class="linenos">11</span><span class="n">updated_env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;MSDSS&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">updated_env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">&#39;MSDSS&#39;</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">&#39;msdss123&#39;</span><span class="p">)</span>
 <span class="linenos">12</span><span class="n">update_env_file</span><span class="p">(</span><span class="n">updated_env</span><span class="p">)</span>
 <span class="linenos">13</span>
 <span class="linenos">14</span><span class="c1"># Load the saved env after the addition</span>
@@ -517,14 +551,99 @@ loaded_env: {&#39;user&#39;: &#39;MSDSS&#39;, &#39;password&#39;: &#39;msdss123&
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;user&#39;: &#39;msdss&#39;, &#39;secret&#39;: &#39;some-secret&#39;}
-loaded_env: {&#39;user&#39;: &#39;MSDSS&#39;, &#39;secret&#39;: &#39;some-secret&#39;, &#39;password&#39;: &#39;msdss123&#39;}
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {&#39;USER&#39;: &#39;msdss&#39;, &#39;SECRET&#39;: &#39;some-secret&#39;}
+loaded_env: {&#39;USER&#39;: &#39;MSDSS&#39;, &#39;SECRET&#39;: &#39;some-secret&#39;, &#39;PASSWORD&#39;: &#39;msdss123&#39;}
 </pre></div>
 </div>
 </div>
 </div>
 </dd></dl>
 
+</section>
+<section id="module-msdss_base_dotenv.cli">
+<span id="command-line-interface"></span><h2>Command Line Interface<a class="headerlink" href="#module-msdss_base_dotenv.cli" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="msdss_base_dotenv.cli._get_parser">
+<span class="sig-prename descclassname"><span class="pre">msdss_base_dotenv.cli.</span></span><span class="sig-name descname"><span class="pre">_get_parser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/msdss_base_dotenv/cli.html#_get_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.cli._get_parser" title="Permalink to this definition"></a></dt>
+<dd><p>Builds an <code class="docutils literal notranslate"><span class="pre">argparse</span></code> parser for the <code class="docutils literal notranslate"><span class="pre">msdss-dotenv</span></code> command line tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An <code class="docutils literal notranslate"><span class="pre">argparse</span></code> parser for <code class="docutils literal notranslate"><span class="pre">msdss-dotenv</span></code>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Author</p>
+<p>Richard Wen &lt;<a class="reference external" href="mailto:rrwen&#46;dev&#37;&#52;&#48;gmail&#46;com">rrwen<span>&#46;</span>dev<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p>
+<p class="rubric">Example</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">msdss_base_dotenv.cli</span> <span class="kn">import</span> <span class="n">_get_parser</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">parser</span> <span class="o">=</span> <span class="n">_get_parser</span><span class="p">()</span>
+<span class="linenos">4</span><span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="msdss_base_dotenv.cli.run">
+<span class="sig-prename descclassname"><span class="pre">msdss_base_dotenv.cli.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/msdss_base_dotenv/cli.html#run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.cli.run" title="Permalink to this definition"></a></dt>
+<dd><p>Runs the <code class="docutils literal notranslate"><span class="pre">msdss-dotenv</span></code> command.</p>
+<p class="rubric">Author</p>
+<p>Richard Wen &lt;<a class="reference external" href="mailto:rrwen&#46;dev&#37;&#52;&#48;gmail&#46;com">rrwen<span>&#46;</span>dev<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<div class="jupyter_cell docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>usage: ipykernel_launcher.py [-h] [--file_path FILE_PATH]
+                             [--key_path KEY_PATH]
+                             {init,set,del,clear} ...
+
+Manages encrypted .env files
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --file_path FILE_PATH
+                        path of .env file
+  --key_path KEY_PATH   path of key file
+
+commands:
+  {init,set,del,clear}
+    init                create env file and key
+    set                 set an env var
+    del                 delete an env var
+    clear               clear env file and key
+</pre></div>
+</div>
+</div>
+</div>
+<p>Initialize env and key files (run this first):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">init</span>
+</pre></div>
+</div>
+<p>Set <code class="docutils literal notranslate"><span class="pre">USER</span></code> var to <code class="docutils literal notranslate"><span class="pre">msdss</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="nb">set</span> <span class="n">USER</span> <span class="n">msdss</span>
+</pre></div>
+</div>
+<p>Remove <code class="docutils literal notranslate"><span class="pre">USER</span></code> var:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="k">del</span> <span class="n">USER</span>
+</pre></div>
+</div>
+<p>Clear env and key files:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">clear</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
 </section>
 <section id="contact">
 <h1>Contact<a class="headerlink" href="#contact" title="Permalink to this headline"></a></h1>

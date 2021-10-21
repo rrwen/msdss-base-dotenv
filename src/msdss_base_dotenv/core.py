@@ -29,7 +29,7 @@ def clear_env_file(file_path='./.env', key_path=None):
         from msdss_base_dotenv.core import save_env_file, load_env_file, clear_env_file
 
         # Create default key value env
-        env = dict(user='msdss', password='msdss123')
+        env = dict(USER='msdss', PASSWORD='msdss123')
 
         # Save the key value env to an encrypted file
         save_env_file(env)
@@ -47,13 +47,13 @@ def clear_env_file(file_path='./.env', key_path=None):
         if os.path.exists(path):
             os.remove(path)
 
-def del_env_var(key, file_path='./.env', key_path=None):
+def del_env_var(name, file_path='./.env', key_path=None):
     """
     Deletes an environmental variable using a file from :func:`msdss_base_dotenv.core.save_env_file`.
     
     Parameters
     ----------
-    key : str
+    name : str
         The name of the environmental variable to be deleted.
     file_path : str
         Path of the environment save file.
@@ -74,11 +74,11 @@ def del_env_var(key, file_path='./.env', key_path=None):
         clear_env_file()
 
         # Create key value env and save it
-        env = dict(user='msdss', password='msdss123')
+        env = dict(USER='msdss', PASSWORD='msdss123')
         save_env_file(env)
 
         # Remove the password var from the saved env
-        del_env_var('password')
+        del_env_var('PASSWORD')
 
         # Load the saved env after the removal
         loaded_env = load_env_file()
@@ -88,7 +88,7 @@ def del_env_var(key, file_path='./.env', key_path=None):
         print('loaded_env: ' + str(loaded_env))
     """
     env = load_env_file(file_path=file_path, key_path=key_path)
-    del env[key]
+    del env[name]
     save_env_file(env, file_path=file_path, key_path=key_path)
 
 def env_exists(file_path='./.env', key_path=None):
@@ -124,7 +124,7 @@ def env_exists(file_path='./.env', key_path=None):
         exists_before = env_exists()
 
         # Create key value env and save it
-        env = dict(user='msdss', password='msdss123')
+        env = dict(USER='msdss', PASSWORD='msdss123')
         save_env_file(env)
 
         # Check if env exists
@@ -175,8 +175,8 @@ def load_env_file(file_path='./.env', key_path=None, defaults={}):
         clear_env_file()
 
         # Create key value env and save it with defaults
-        env = dict(user='msdss', password='msdss123')
-        defaults = dict(database='postgres', port='5432')
+        env = dict(USER='msdss', PASSWORD='msdss123')
+        defaults = dict(DATABASE='postgres', PORT='5432')
         save_env_file(env, defaults=defaults)
 
         # Load the saved env file 
@@ -240,7 +240,7 @@ def save_env_file(env, file_path='./.env', key_path=None, defaults={}):
         clear_env_file()
 
         # Create default key value env
-        env = dict(user='msdss', password='msdss123')
+        env = dict(USER='msdss', PASSWORD='msdss123')
 
         # Save the key value env to an encrypted file
         save_env_file(env)
@@ -272,13 +272,13 @@ def save_env_file(env, file_path='./.env', key_path=None, defaults={}):
     with open(env_path, 'wb') as env_file:
         pickle.dump(encrypted, env_file)
 
-def set_env_var(key, value, file_path='./.env', key_path=None):
+def set_env_var(name, value, file_path='./.env', key_path=None):
     """
     Sets an environmental variable using a file from :func:`msdss_base_dotenv.core.save_env_file`.
     
     Parameters
     ----------
-    key : str
+    name : str
         The name of the environmental variable to be set.
     value : str
         The value of the environmental variable to be set.
@@ -301,12 +301,12 @@ def set_env_var(key, value, file_path='./.env', key_path=None):
         clear_env_file()
 
         # Create key value env and save it
-        env = dict(user='msdss')
+        env = dict(USER='msdss')
         save_env_file(env)
 
         # Add/set a password var to the saved env
-        set_env_var('user', 'MSDSS')
-        set_env_var('password', 'msdss123')
+        set_env_var('USER', 'MSDSS')
+        set_env_var('PASSWORD', 'msdss123')
 
         # Load the saved env after the addition
         loaded_env = load_env_file()
@@ -316,7 +316,7 @@ def set_env_var(key, value, file_path='./.env', key_path=None):
         print('loaded_env: ' + str(loaded_env))
     """
     env = load_env_file(file_path=file_path, key_path=key_path)
-    env[key] = value
+    env[name] = value
     save_env_file(env, file_path=file_path, key_path=key_path)
 
 def update_env_file(updated_env, file_path='./.env', key_path=None):
@@ -348,11 +348,11 @@ def update_env_file(updated_env, file_path='./.env', key_path=None):
         clear_env_file()
 
         # Create key value env and save it
-        env = dict(user='msdss', secret='some-secret')
+        env = dict(USER='msdss', SECRET='some-secret')
         save_env_file(env)
 
         # Update the env with a new user and password
-        updated_env = dict(user='MSDSS', password='msdss123')
+        updated_env = dict(USER='MSDSS', PASSWORD='msdss123')
         update_env_file(updated_env)
 
         # Load the saved env after the addition
