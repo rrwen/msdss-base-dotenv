@@ -28,26 +28,26 @@ def _get_parser():
 
     """
 
-    # (_get_parser__parsers) Create main parser and sub parsers
+    # (_get_parser_parsers) Create main parser and sub parsers
     parser = argparse.ArgumentParser(description='Manages encrypted .env files')
     subparsers = parser.add_subparsers(title='commands', dest='command')
 
-    # (_get_parser__init) Add init command
+    # (_get_parser_init) Add init command
     init_parser = subparsers.add_parser('init', help='create env file and key')
     
-    # (_get_parser__set) Add set command
+    # (_get_parser_set) Add set command
     set_parser = subparsers.add_parser('set', help='set an env var')
     set_parser.add_argument('name', type=str, help='env var name to set')
     set_parser.add_argument('value', type=str, help='env var value to set')
 
-    # (_get_parser__del) Add del command
+    # (_get_parser_del) Add del command
     del_parser = subparsers.add_parser('del', help='delete an env var')
     del_parser.add_argument('name', type=str, help='env var name to delete')
 
-    # (_get_parser__clear) Add clear command
+    # (_get_parser_clear) Add clear command
     clear_parser = subparsers.add_parser('clear', help='clear env file and key')
 
-    # (_get_parser__file_key) Add file and key arguments to all commands
+    # (_get_parser_file_key) Add file and key arguments to all commands
     for p in [parser, init_parser, set_parser, del_parser, clear_parser]:
         p.add_argument('--file_path', type=str, default='./.env', help='path of .env file')
         p.add_argument('--key_path', type=str, default=None, help='path of key file')
