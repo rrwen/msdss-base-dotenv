@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>msdss_base_dotenv.cli &mdash; msdss_base_dotenv 0.0.3 documentation</title>
+  <title>msdss_base_dotenv.cli &mdash; msdss_base_dotenv 0.2.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> msdss_base_dotenv
           </a>
               <div class="version">
-                0.0.3
+                0.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -117,26 +117,26 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># (_get_parser__parsers) Create main parser and sub parsers</span>
+    <span class="c1"># (_get_parser_parsers) Create main parser and sub parsers</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Manages encrypted .env files&#39;</span><span class="p">)</span>
     <span class="n">subparsers</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;commands&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;command&#39;</span><span class="p">)</span>
 
-    <span class="c1"># (_get_parser__init) Add init command</span>
+    <span class="c1"># (_get_parser_init) Add init command</span>
     <span class="n">init_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;init&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;create env file and key&#39;</span><span class="p">)</span>
     
-    <span class="c1"># (_get_parser__set) Add set command</span>
+    <span class="c1"># (_get_parser_set) Add set command</span>
     <span class="n">set_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;set an env var&#39;</span><span class="p">)</span>
     <span class="n">set_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;env var name to set&#39;</span><span class="p">)</span>
     <span class="n">set_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;env var value to set&#39;</span><span class="p">)</span>
 
-    <span class="c1"># (_get_parser__del) Add del command</span>
+    <span class="c1"># (_get_parser_del) Add del command</span>
     <span class="n">del_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;del&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;delete an env var&#39;</span><span class="p">)</span>
     <span class="n">del_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;env var name to delete&#39;</span><span class="p">)</span>
 
-    <span class="c1"># (_get_parser__clear) Add clear command</span>
+    <span class="c1"># (_get_parser_clear) Add clear command</span>
     <span class="n">clear_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;clear&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;clear env file and key&#39;</span><span class="p">)</span>
 
-    <span class="c1"># (_get_parser__file_key) Add file and key arguments to all commands</span>
+    <span class="c1"># (_get_parser_file_key) Add file and key arguments to all commands</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="n">parser</span><span class="p">,</span> <span class="n">init_parser</span><span class="p">,</span> <span class="n">set_parser</span><span class="p">,</span> <span class="n">del_parser</span><span class="p">,</span> <span class="n">clear_parser</span><span class="p">]:</span>
         <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--file_path&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;./.env&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;path of .env file&#39;</span><span class="p">)</span>
         <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--key_path&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;path of key file&#39;</span><span class="p">)</span>

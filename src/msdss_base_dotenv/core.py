@@ -118,6 +118,9 @@ def del_env_var(name, file_path='./.env', key_path=None):
         env = dict(USER='msdss', PASSWORD='msdss123')
         save_env_file(env)
 
+        # Load the saved env
+        load_env_file()
+
         # Remove the password var from the saved env
         del_env_var('PASSWORD')
 
@@ -125,7 +128,7 @@ def del_env_var(name, file_path='./.env', key_path=None):
         load_env_file()
         loaded_env = dict(
             USER=os.environ['USER'],
-            PASSWORD=os.environ['PASSWORD']
+            PASSWORD=os.getenv('PASSWORD', None)
         )
 
         # Display the results
@@ -260,7 +263,8 @@ def load_env_file(file_path='./.env', key_path=None, defaults={}, set_env=True, 
         encrypted = pickle.load(env_file)
     
     # (load_env_file_decrypt) Decrypt env
-    env = decrypter.decrypt(encrypted).decode('utf-8')
+    decrypted = decrypter.decrypt(encrypted).decode('utf-8')
+    env = json.loads(decrypted)
 
     # (load_env_file_set) Set env variables in environ
     if set_env:

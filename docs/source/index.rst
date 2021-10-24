@@ -116,6 +116,9 @@ Edit saved encrypted environment variable files:
    env = dict(USER='msdss', PASSWORD='msdss123')
    save_env_file(env, file_path='./.env')
 
+   # Load env vars
+   load_env_file(file_path='./.env')
+
    # Remove the password variable
    del_env_var('PASSWORD')
 
@@ -126,7 +129,6 @@ Edit saved encrypted environment variable files:
    load_env_file(file_path='./.env')
    edited_env = dict(
       USER=os.environ['USER'],
-      PASSWORD=os.environ['PASSWORD'],
       SECRET=os.environ['SECRET']
    )
 
