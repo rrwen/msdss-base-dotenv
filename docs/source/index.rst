@@ -58,6 +58,8 @@ Create and load encrypted environment variables:
 
 .. jupyter-execute::
 
+   import os
+
    from msdss_base_dotenv import *
 
    # Clear existing env files
@@ -71,21 +73,30 @@ Create and load encrypted environment variables:
    save_env_file(env, file_path='./.env')
 
    # Load encrypted env vars
-   loaded_env = load_env_file(file_path='./.env')
+   load_env_file(file_path='./.env')
+   loaded_env = dict(
+      USER=os.environ['USER'],
+      PASSWORD=os.environ['PASSWORD']
+   )
 
    # Load env vars with defaults
-   defaults = dict(DATABASE='postgres', PORT='5432')
-   loaded_env_defaults = load_env_file('./.env', defaults=defaults)
+   defaults = dict(DATABASE='postgres', PASSWORD='already-set')
+   load_env_file('./.env', defaults=defaults)
+   loaded_env_defaults = dict(
+      USER=os.environ['USER'],
+      PASSWORD=os.environ['PASSWORD'],
+      DATABASE=os.environ['DATABASE']
+   )
 
    # Check if env exists after saving vars
    exists_after = env_exists()
 
    # Display the results
    print('exists_before: ' + str(exists_before))
-   print('env: ' + str(env))
-   print('loaded_env: ' + str(loaded_env))
-   print('loaded_env_defaults: ' + str(loaded_env_defaults))
-   print('exists_after: ' + str(exists_after))
+   print('\n\nenv: ' + str(env))
+   print('\n\nloaded_env: ' + str(loaded_env))
+   print('\nloaded_env_defaults: ' + str(loaded_env_defaults))
+   print('\n\nexists_after: ' + str(exists_after))
 
 Editing Environment Variables
 -----------------------------
@@ -93,6 +104,8 @@ Editing Environment Variables
 Edit saved encrypted environment variable files:
 
 .. jupyter-execute::
+
+   import os
 
    from msdss_base_dotenv import *
 
@@ -109,12 +122,13 @@ Edit saved encrypted environment variable files:
    # Set a secret variable
    set_env_var('SECRET', 'some-secret')
 
-   # Update with a dict
-   updated_env = dict(HOST='localhost', PORT='5432')
-   update_env_file(updated_env)
-
    # Load the env vars with edits
-   edited_env = load_env_file(file_path='./.env')
+   load_env_file(file_path='./.env')
+   edited_env = dict(
+      USER=os.environ['USER'],
+      PASSWORD=os.environ['PASSWORD'],
+      SECRET=os.environ['SECRET']
+   )
 
    # Display the results
    print('env: ' + str(env))
