@@ -93,10 +93,10 @@ Create and load encrypted environment variables:
 
    # Display the results
    print('exists_before: ' + str(exists_before))
-   print('\n\nenv: ' + str(env))
-   print('\n\nloaded_env: ' + str(loaded_env))
-   print('\nloaded_env_defaults: ' + str(loaded_env_defaults))
-   print('\n\nexists_after: ' + str(exists_after))
+   print('\nenv: ' + str(env))
+   print('loaded_env: ' + str(loaded_env))
+   print('loaded_env_defaults: ' + str(loaded_env_defaults))
+   print('\nexists_after: ' + str(exists_after))
 
 Editing Environment Variables
 -----------------------------
