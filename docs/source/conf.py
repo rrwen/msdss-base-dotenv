@@ -95,6 +95,7 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 html_theme = 'sphinx_material'
+html_logo = 'logo.svg'
 html_title = version
 html_sidebars = {
     "**": ["globaltoc.html", "localtoc.html", "searchbox.html"]
@@ -107,7 +108,6 @@ html_sidebars = {
 html_theme_options = {
     'nav_title': 'msdss-base-dotenv',
     'base_url': 'https://rrwen.github.io/msdss-base-dotenv',
-    'logo_icon': 'security',
     'color_primary': 'indigo',
     'color_accent': 'light-blue',
     'repo_url': 'https://github.com/rrwen/msdss-base-dotenv/',
