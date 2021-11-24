@@ -15,17 +15,10 @@ class EnvironmentVariables:
     key_path : str
         The path of the key file for the ``env_file``.
     **kwargs
-        Keyword arguments defining the environmental attributes and variable names for this object.
+        Keyword arguments defining the environmental attributes and variable names for this object:
 
         * Each key represents the attribute name
         * Each value represents the environmental variable name
-        * Each key and value also sets three methods
-            * ``get_<key>``: gets the env var from the ``env_file``, or accepts an optional default value if it does not exist
-            * ``set_<key>``: sets the env var in the ``env_file``
-            * ``del_<key>``: deletes the env var value from the ``env_file``
-        * For example, passing ``secret='MSDSS_SECRET'`` sets:
-            * An attribute ``secret``, which stores ``MSDSS_SECRET`` as its value
-            * Methods ``get_secret``, ``set_secret``, and ``del_secret``
 
     Attributes
     ----------
@@ -33,7 +26,7 @@ class EnvironmentVariables:
         Same as parameter ``env_file``.
     key_path : str
         Same as parameter ``key_path``.
-    **kwargs
+    \*\*kwargs
         Copies the keys and values from ``**kwargs`` to the attributes.
 
     Example
@@ -81,15 +74,9 @@ class EnvironmentVariables:
         key_path=None,
         **kwargs):
 
-        # (Environment_kwargs) Set attrs and meths for key value args
+        # (Environment_kwargs) Set attrs for key value args
         for k, v in kwargs.items():
             setattr(self, k, v)
-            get_method = partial(lambda default=None: os.getenv(getattr(self, k), default))
-            set_method = partial(lambda value: set_env_var(getattr(self, k), value))
-            del_method = partial(lambda: del_env_var(getattr(self, k)))
-            setattr(self, 'get_' + k, get_method)
-            setattr(self, 'set_' + k, set_method)
-            setattr(self, 'del_' + k, del_method)
         
         # (Environment_attrs) Set standard attrs
         self.env_file = env_file
@@ -126,6 +113,9 @@ class EnvironmentVariables:
         """
         clear_env_file(file_path=self.file_path, key_path=self.key_path)
 
+    def delete(self, name):
+        del_env_var(getattr(self, name))
+
     def exists(self):
         """
         Checks whether an env and key file pair exists.
@@ -150,6 +140,10 @@ class EnvironmentVariables:
             print(env.exists())
         """
         out = env_exists(file_path=self.env_file, key_path=self.key_path)
+        return out
+
+    def get(self, name, default=None):
+        out = os.getenv(getattr(self, name), default)
         return out
 
     def load(self, throw_error=False):
@@ -185,3 +179,6 @@ class EnvironmentVariables:
             load_env_file(file_path=self.env_file, key_path=self.key_path)
         elif throw_error:
             raise FileNotFoundError(f'Env or key file does not exist')
+
+    def set(self, name, value):
+        set_env_var(getattr(self, name), value)

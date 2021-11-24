@@ -46,11 +46,11 @@ Use a :class:`msdss_base_dotenv.core.EnvironmentVariables` class to manage varia
     clear_env_file()
 
     # Create env file
-    env = dict(USER='msdss', PASSWORD='msdss123') # notice no SECRET var
+    env = dict(USER='msdss', PASSWORD='msdss123') # notice no NONEXIST var
     save_env_file(env, file_path='./.env')
 
     # Create object to represent env vars and load it
-    env = EnvironmentVariables(secret='SECRET', user='USER', password='PASSWORD')
+    env = EnvironmentVariables(nonexist='NONEXIST', user='USER', password='PASSWORD')
     env.load()
 
     # Get an existing env var
@@ -58,9 +58,9 @@ Use a :class:`msdss_base_dotenv.core.EnvironmentVariables` class to manage varia
     print('password: ' + password)
 
     # Get a non-existent env var
-    # Will print the default value 'secret-default'
-    secret = env.get_secret('secret-default')
-    print('secret: ' + secret)
+    # Will print the default value 'nonexist-default'
+    nonexist = env.get_nonexist('nonexist-default')
+    print('nonexist: ' + nonexist)
 
     # Del the password
     env.del_password()
