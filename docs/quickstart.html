@@ -47,7 +47,7 @@
   
   
   
-    <title>Quick Start &#8212; 0.2.0</title>
+    <title>Quick Start &#8212; 0.2.5</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -65,7 +65,7 @@
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Reference" href="reference/index.html" />
+    <link rel="next" title="Usage" href="usage.html" />
     <link rel="prev" title="Install" href="install.html" />
   
    
@@ -90,11 +90,11 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="index.html" title="0.2.0"
+        <a href="index.html" title="0.2.5"
            class="md-header-nav__button md-logo">
           
               <img src="_static/logo.svg" height="26"
-                   alt="0.2.0 logo">
+                   alt="0.2.5 logo">
           
         </a>
       </div>
@@ -177,7 +177,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="index.html" class="md-tabs__link">0.2.0</a></li>
+          <li class="md-tabs__item"><a href="index.html" class="md-tabs__link">0.2.5</a></li>
       </ul>
     </div>
   </nav>
@@ -189,13 +189,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="index.html" title="0.2.0" class="md-nav__button md-logo">
+    <a href="index.html" title="0.2.5" class="md-nav__button md-logo">
       
         <img src="_static/logo.svg" alt=" logo" width="48" height="48">
       
     </a>
     <a href="index.html"
-       title="0.2.0">msdss-base-dotenv</a>
+       title="0.2.5">msdss-base-dotenv</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/rrwen/msdss-base-dotenv/" title="Go to repository" class="md-source" data-md-source="github">
@@ -233,21 +233,19 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#quickstart--page-root" class="md-nav__link">Quick Start</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#command-line-interface-cli" class="md-nav__link">Command Line Interface (CLI)</a>
-        </li>
-        <li class="md-nav__item"><a href="#python" class="md-nav__link">Python</a>
-        </li></ul>
-            </nav>
-        </li>
     
 <li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/quickstart.rst.txt">Show Source</a> </li>
 
   </ul>
 </nav>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="usage.html" class="md-nav__link">Usage</a>
       
     
     </li>
@@ -270,16 +268,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#quickstart--page-root" class="md-nav__link">Quick Start</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#command-line-interface-cli" class="md-nav__link">Command Line Interface (CLI)</a>
-        </li>
-        <li class="md-nav__item"><a href="#python" class="md-nav__link">Python</a>
-        </li></ul>
-            </nav>
-        </li>
     
 <li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/quickstart.rst.txt">Show Source</a> </li>
 
@@ -296,137 +285,26 @@
             
   <section id="quick-start">
 <h1 id="quickstart--page-root">Quick Start<a class="headerlink" href="#quickstart--page-root" title="Permalink to this headline">¶</a></h1>
-<p>This package can be used in either the command line terminal or via Python.</p>
-<section id="command-line-interface-cli">
-<h2 id="command-line-interface-cli">Command Line Interface (CLI)<a class="headerlink" href="#command-line-interface-cli" title="Permalink to this headline">¶</a></h2>
 <p>Initialize your env file and key in a command line terminal:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">init</span>
 </pre></div>
 </div>
-<p>Set env variables:</p>
+<p>Set env variable:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="nb">set</span> <span class="n">USER</span> <span class="n">msdss</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="nb">set</span> <span class="n">PASSWORD</span> <span class="n">msdss123</span>
 </pre></div>
 </div>
 <p>Remove env variables:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="nb">set</span> <span class="n">TYPO</span> <span class="n">randomtypo</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="k">del</span> <span class="n">TYPO</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="k">del</span> <span class="n">USER</span>
 </pre></div>
 </div>
-<p>Clear env file and key:</p>
+<p>Remove env file and key:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="n">clear</span>
 </pre></div>
 </div>
 <p>Get help:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="o">--</span><span class="n">help</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="nb">set</span> <span class="o">--</span><span class="n">help</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">msdss</span><span class="o">-</span><span class="n">dotenv</span> <span class="k">del</span> <span class="o">--</span><span class="n">help</span>
 </pre></div>
 </div>
-</section>
-<section id="python">
-<h2 id="python">Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
-<p>Create and load encrypted environment variables:</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-
-<span class="kn">from</span> <span class="nn">msdss_base_dotenv</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="c1"># Clear existing env files</span>
-<span class="n">clear_env_file</span><span class="p">()</span>
-
-<span class="c1"># Check if env exists</span>
-<span class="n">exists_before</span> <span class="o">=</span> <span class="n">env_exists</span><span class="p">()</span>
-
-<span class="c1"># Save encrypted env vars</span>
-<span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">'msdss'</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">'msdss123'</span><span class="p">)</span>
-<span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
-
-<span class="c1"># Load encrypted env vars</span>
-<span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
-<span class="n">loaded_env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-   <span class="n">USER</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'USER'</span><span class="p">],</span>
-   <span class="n">PASSWORD</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'PASSWORD'</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="c1"># Load env vars with defaults</span>
-<span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">DATABASE</span><span class="o">=</span><span class="s1">'postgres'</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">'already-set'</span><span class="p">)</span>
-<span class="n">load_env_file</span><span class="p">(</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">)</span>
-<span class="n">loaded_env_defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-   <span class="n">USER</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'USER'</span><span class="p">],</span>
-   <span class="n">PASSWORD</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'PASSWORD'</span><span class="p">],</span>
-   <span class="n">DATABASE</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'DATABASE'</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="c1"># Check if env exists after saving vars</span>
-<span class="n">exists_after</span> <span class="o">=</span> <span class="n">env_exists</span><span class="p">()</span>
-
-<span class="c1"># Display the results</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'exists_before: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">exists_before</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">env: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">env</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'loaded_env: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loaded_env</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'loaded_env_defaults: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loaded_env_defaults</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">exists_after: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">exists_after</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>exists_before: False
-
-env: {'USER': 'msdss', 'PASSWORD': 'msdss123'}
-loaded_env: {'USER': 'msdss', 'PASSWORD': 'msdss123'}
-loaded_env_defaults: {'USER': 'msdss', 'PASSWORD': 'msdss123', 'DATABASE': 'postgres'}
-
-exists_after: True
-</pre></div>
-</div>
-</div>
-</div>
-<p>Edit saved encrypted environment variable files:</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-
-<span class="kn">from</span> <span class="nn">msdss_base_dotenv</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="c1"># Clear existing env files</span>
-<span class="n">clear_env_file</span><span class="p">()</span>
-
-<span class="c1"># Save env vars</span>
-<span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">'msdss'</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">'msdss123'</span><span class="p">)</span>
-<span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
-
-<span class="c1"># Load env vars</span>
-<span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
-
-<span class="c1"># Remove the password variable</span>
-<span class="n">del_env_var</span><span class="p">(</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
-
-<span class="c1"># Set a secret variable</span>
-<span class="n">set_env_var</span><span class="p">(</span><span class="s1">'SECRET'</span><span class="p">,</span> <span class="s1">'some-secret'</span><span class="p">)</span>
-
-<span class="c1"># Load the env vars with edits</span>
-<span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
-<span class="n">edited_env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-   <span class="n">USER</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'USER'</span><span class="p">],</span>
-   <span class="n">SECRET</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'SECRET'</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="c1"># Display the results</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'env: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">env</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'edited_env: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">edited_env</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>env: {'USER': 'msdss', 'PASSWORD': 'msdss123'}
-edited_env: {'USER': 'msdss', 'SECRET': 'some-secret'}
-</pre></div>
-</div>
-</div>
-</div>
-</section>
 </section>
 
 
@@ -453,12 +331,12 @@ edited_env: {'USER': 'msdss', 'SECRET': 'some-secret'}
             </a>
           
           
-            <a href="reference/index.html" title="API Reference"
+            <a href="usage.html" title="Usage"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> API Reference </span>
+                class="md-footer-nav__direction"> Next </span> Usage </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -476,7 +354,7 @@ edited_env: {'USER': 'msdss', 'SECRET': 'some-secret'}
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.3.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

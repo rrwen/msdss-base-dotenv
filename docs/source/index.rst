@@ -17,4 +17,5 @@ Richard Wen <rrwen.dev@gmail.com>
 
    install
    quickstart
+   usage
    reference/index
