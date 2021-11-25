@@ -35,44 +35,45 @@ For more information, see :class:`msdss_base_dotenv.cli.run`.
 Python Class
 ------------
 
-Use a :class:`msdss_base_dotenv.core.EnvironmentVariables` class to manage variables in an existing env file:
+Use a :class:`msdss_base_dotenv.core.DotEnv` class to manage variables in an existing env file:
 
 .. jupyter-execute::
 
-    from msdss_base_dotenv import EnvironmentVariables
-    from msdss_base_dotenv.tools import *
+   from msdss_base_dotenv import DotEnv
+   from msdss_base_dotenv.tools import *
 
-    # Clear existing env files
-    clear_env_file()
+   # Clear any existing env files
+   clear_env_file()
 
-    # Create env file
-    env = dict(USER='msdss', PASSWORD='msdss123') # notice no NONEXIST var
-    save_env_file(env, file_path='./.env')
+   # Create env
+   env = DotEnv(secret='MSDSS_SECRET', password='PASSWORD')
 
-    # Create object to represent env vars and load it
-    env = EnvironmentVariables(nonexist='NONEXIST', user='USER', password='PASSWORD')
-    env.load()
+   # Set an env var
+   env.set('password', 'msdss123')
 
-    # Get an existing env var
-    password = env.get_password()
-    print('password: ' + password)
+   # Get an existing env var
+   password = env.get('password')
+   print('password: ' + password)
 
-    # Get a non-existent env var
-    # Will print the default value 'nonexist-default'
-    nonexist = env.get_nonexist('nonexist-default')
-    print('nonexist: ' + nonexist)
+   # Get a non-existent env var
+   # Will print the default value 'secret-default'
+   secret = env.get('secret', 'secret-default')
+   print('secret: ' + secret)
 
-    # Del the password
-    env.del_password()
-    password = env.get_password()
-    print('password_after_del: ' + str(password))
+   # Del the password
+   env.delete('password')
+   password = env.get('password')
+   print('password_after_del: ' + str(password))
 
-    # Set the password
-    env.set_password('new-password')
-    password = env.get_password()
-    print('password_after_set: ' + str(password))
+   # Set the password
+   env.set('password', 'new-password')
+   password = env.get('password')
+   print('password_after_set: ' + str(password))
 
-For more information, see :class:`msdss_base_dotenv.core.EnvironmentVariables`.
+   # Remove the env files
+   env.clear()
+
+For more information, see :class:`msdss_base_dotenv.core.DotEnv`.
 
 Python Tools
 ------------
@@ -93,10 +94,10 @@ Create and load encrypted environment variables:
 
    # Save encrypted env vars
    env = dict(USER='msdss', PASSWORD='msdss123')
-   save_env_file(env, file_path='./.env')
+   save_env_file(env, env_file='./.env')
 
    # Load encrypted env vars
-   load_env_file(file_path='./.env')
+   load_env_file(env_file='./.env')
    loaded_env = dict(
       USER=os.environ['USER'],
       PASSWORD=os.environ['PASSWORD']
@@ -134,10 +135,10 @@ Edit saved encrypted environment variable files:
 
    # Save env vars
    env = dict(USER='msdss', PASSWORD='msdss123')
-   save_env_file(env, file_path='./.env')
+   save_env_file(env, env_file='./.env')
 
    # Load env vars
-   load_env_file(file_path='./.env')
+   load_env_file(env_file='./.env')
 
    # Remove the password variable
    del_env_var('PASSWORD')
@@ -146,7 +147,7 @@ Edit saved encrypted environment variable files:
    set_env_var('SECRET', 'some-secret')
 
    # Load the env vars with edits
-   load_env_file(file_path='./.env')
+   load_env_file(env_file='./.env')
    edited_env = dict(
       USER=os.environ['USER'],
       SECRET=os.environ['SECRET']

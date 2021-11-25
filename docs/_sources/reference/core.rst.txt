@@ -1,9 +1,29 @@
-Core
-====
+DotEnv
+------
 
-.. automodule:: msdss_base_dotenv.core
+.. autoclass:: msdss_base_dotenv.core.DotEnv
 
-EnvironmentVariables
---------------------
+clear
+^^^^^
 
-.. autofunction:: msdss_base_dotenv.core.EnvironmentVariables
+.. automethod:: msdss_base_dotenv.core.DotEnv.clear
+
+delete
+^^^^^^
+
+.. automethod:: msdss_base_dotenv.core.DotEnv.delete
+
+exists
+^^^^^^
+
+.. automethod:: msdss_base_dotenv.core.DotEnv.exists
+
+get
+^^^
+
+.. automethod:: msdss_base_dotenv.core.DotEnv.get
+
+set
+^^^
+
+.. automethod:: msdss_base_dotenv.core.DotEnv.set

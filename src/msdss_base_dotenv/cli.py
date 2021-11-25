@@ -49,7 +49,7 @@ def _get_parser():
 
     # (_get_parser_file_key) Add file and key arguments to all commands
     for p in [parser, init_parser, set_parser, del_parser, clear_parser]:
-        p.add_argument('--file_path', type=str, default='./.env', help='path of .env file')
+        p.add_argument('--env_file', type=str, default='./.env', help='path of .env file')
         p.add_argument('--key_path', type=str, default=None, help='path of key file')
     
     # (_get_parser_out) Return the parser

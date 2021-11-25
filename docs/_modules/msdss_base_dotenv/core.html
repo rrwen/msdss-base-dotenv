@@ -275,7 +275,7 @@
 
 <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="o">*</span>
 
-<div class="viewcode-block" id="EnvironmentVariables"><a class="viewcode-back" href="../../reference/core.html#msdss_base_dotenv.core.EnvironmentVariables">[docs]</a><span class="k">class</span> <span class="nc">EnvironmentVariables</span><span class="p">:</span>
+<div class="viewcode-block" id="DotEnv"><a class="viewcode-back" href="../../reference/core.html#msdss_base_dotenv.core.DotEnv">[docs]</a><span class="k">class</span> <span class="nc">DotEnv</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Class to manage environmental variables.</span>
 
@@ -285,18 +285,14 @@
 <span class="sd">        The path of the file with environmental variables.</span>
 <span class="sd">    key_path : str</span>
 <span class="sd">        The path of the key file for the ``env_file``.</span>
+<span class="sd">    defaults : dict</span>
+<span class="sd">        Key and value pairs representing default environment values to be loaded. These will be loaded if ones in the ``env_file`` do not exist or are unset.</span>
 <span class="sd">    **kwargs</span>
-<span class="sd">        Keyword arguments defining the environmental attributes and variable names for this object.</span>
+<span class="sd">        Keyword arguments defining the environmental variable name mappings for this object:</span>
 
-<span class="sd">        * Each key represents the attribute name</span>
+<span class="sd">        * Each key represents an alias name referring to an environmental variable</span>
 <span class="sd">        * Each value represents the environmental variable name</span>
-<span class="sd">        * Each key and value also sets three methods</span>
-<span class="sd">            * ``get_&lt;key&gt;``: gets the env var from the ``env_file``, or accepts an optional default value if it does not exist</span>
-<span class="sd">            * ``set_&lt;key&gt;``: sets the env var in the ``env_file``</span>
-<span class="sd">            * ``del_&lt;key&gt;``: deletes the env var value from the ``env_file``</span>
-<span class="sd">        * For example, passing ``secret='MSDSS_SECRET'`` sets:</span>
-<span class="sd">            * An attribute ``secret``, which stores ``MSDSS_SECRET`` as its value</span>
-<span class="sd">            * Methods ``get_secret``, ``set_secret``, and ``del_secret``</span>
+<span class="sd">        * This allows changing env vars to refer to the same keys</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -304,76 +300,78 @@
 <span class="sd">        Same as parameter ``env_file``.</span>
 <span class="sd">    key_path : str</span>
 <span class="sd">        Same as parameter ``key_path``.</span>
-<span class="sd">    **kwargs</span>
-<span class="sd">        Copies the keys and values from ``**kwargs`` to the attributes.</span>
+<span class="sd">    defaults : dict</span>
+<span class="sd">        Same as parameter ``defaults``.</span>
+<span class="sd">    mappings : dict</span>
+<span class="sd">        Dictionary of key and values relative to ``kwargs``.</span>
+
+<span class="sd">    Author</span>
+<span class="sd">    ------</span>
+<span class="sd">    Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
 <span class="sd">    .. jupyter-execute::</span>
 
-<span class="sd">        from msdss_base_dotenv import *</span>
+<span class="sd">        from msdss_base_dotenv import DotEnv</span>
 <span class="sd">        from msdss_base_dotenv.tools import *</span>
 
 <span class="sd">        # Clear any existing env files</span>
 <span class="sd">        clear_env_file()</span>
 
-<span class="sd">        # Create default key value env</span>
-<span class="sd">        env = dict(USER='msdss', PASSWORD='msdss123')</span>
+<span class="sd">        # Create env</span>
+<span class="sd">        env = DotEnv(secret='MSDSS_SECRET', password='PASSWORD')</span>
 
-<span class="sd">        # Save the key value env to an encrypted file</span>
-<span class="sd">        save_env_file(env)</span>
-
-<span class="sd">        # Create env and load</span>
-<span class="sd">        env = EnvironmentVariables(secret='MSDSS_SECRET', password='PASSWORD')</span>
-<span class="sd">        env.load()</span>
+<span class="sd">        # Set an env var</span>
+<span class="sd">        env.set('password', 'msdss123')</span>
 
 <span class="sd">        # Get an existing env var</span>
-<span class="sd">        password = env.get_password()</span>
+<span class="sd">        password = env.get('password')</span>
 <span class="sd">        print('password: ' + password)</span>
 
 <span class="sd">        # Get a non-existent env var</span>
 <span class="sd">        # Will print the default value 'secret-default'</span>
-<span class="sd">        secret = env.get_secret('secret-default')</span>
+<span class="sd">        secret = env.get('secret', 'secret-default')</span>
 <span class="sd">        print('secret: ' + secret)</span>
 
 <span class="sd">        # Del the password</span>
-<span class="sd">        env.del_password()</span>
-<span class="sd">        password = env.get_password()</span>
+<span class="sd">        env.delete('password')</span>
+<span class="sd">        password = env.get('password')</span>
 <span class="sd">        print('password_after_del: ' + str(password))</span>
 
 <span class="sd">        # Set the password</span>
-<span class="sd">        env.set_password('new-password')</span>
-<span class="sd">        password = env.get_password()</span>
+<span class="sd">        env.set('password', 'new-password')</span>
+<span class="sd">        password = env.get('password')</span>
 <span class="sd">        print('password_after_set: ' + str(password))</span>
+
+<span class="sd">        # Remove the env files</span>
+<span class="sd">        env.clear()</span>
 <span class="sd">    """</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span>
         <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">defaults</span><span class="o">=</span><span class="p">{},</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-        <span class="c1"># (Environment_kwargs) Set attrs and meths for key value args</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-            <span class="n">get_method</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="k">lambda</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">default</span><span class="p">))</span>
-            <span class="n">set_method</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="k">lambda</span> <span class="n">value</span><span class="p">:</span> <span class="n">set_env_var</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">value</span><span class="p">))</span>
-            <span class="n">del_method</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">del_env_var</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)))</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'get_'</span> <span class="o">+</span> <span class="n">k</span><span class="p">,</span> <span class="n">get_method</span><span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'set_'</span> <span class="o">+</span> <span class="n">k</span><span class="p">,</span> <span class="n">set_method</span><span class="p">)</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'del_'</span> <span class="o">+</span> <span class="n">k</span><span class="p">,</span> <span class="n">del_method</span><span class="p">)</span>
+        <span class="c1"># (DotEnv_create) Create .env file if it does not exist</span>
+        <span class="k">if</span> <span class="n">env_exists</span><span class="p">(</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="p">):</span>
+            <span class="n">load_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">save_env_file</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="p">)</span>
         
-        <span class="c1"># (Environment_attrs) Set standard attrs</span>
+        <span class="c1"># (Environment_attrs) Set attrs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">env_file</span> <span class="o">=</span> <span class="n">env_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">key_path</span> <span class="o">=</span> <span class="n">key_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span> <span class="o">=</span> <span class="n">kwargs</span>
 
     <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Delete env and key files.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        throw_error : bool</span>
-<span class="sd">            Whether to throw an error if either the env or key file does not exist.</span>
+<span class="sd">        Author</span>
+<span class="sd">        ------</span>
+<span class="sd">        Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
 
 <span class="sd">        Example</span>
 <span class="sd">        -------</span>
@@ -392,45 +390,23 @@
 <span class="sd">            save_env_file(env)</span>
 <span class="sd">            </span>
 <span class="sd">            # Create env and clear it</span>
-<span class="sd">            env = EnvironmentVariables()</span>
+<span class="sd">            env = DotEnv()</span>
 <span class="sd">            env.clear()</span>
 <span class="sd">        """</span>
-        <span class="n">clear_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_path</span><span class="p">)</span>
+        <span class="n">clear_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_path</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        Checks whether an env and key file pair exists.</span>
-
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
-<span class="sd">        bool</span>
-<span class="sd">            Whether or not the env and key file pair exists.</span>
-
-<span class="sd">        Example</span>
-<span class="sd">        -------</span>
-<span class="sd">        .. jupyter-execute::</span>
-
-<span class="sd">            from msdss_base_dotenv import *</span>
-<span class="sd">            from msdss_base_dotenv.tools import *</span>
-
-<span class="sd">            # Clear any existing env files</span>
-<span class="sd">            clear_env_file()</span>
-<span class="sd">            </span>
-<span class="sd">            # Create env and check if it exists</span>
-<span class="sd">            env = EnvironmentVariables()</span>
-<span class="sd">            print(env.exists())</span>
-<span class="sd">        """</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">env_exists</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_path</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">out</span>
-
-    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">throw_error</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Class to manage environmental variables.</span>
+<span class="sd">        Delete an environment variable.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        throw_error : bool</span>
-<span class="sd">            Whether to throw an error if either the env or key file does not exist.</span>
+<span class="sd">        key : str</span>
+<span class="sd">            The key to delete a reference env var.</span>
+
+<span class="sd">        Author</span>
+<span class="sd">        ------</span>
+<span class="sd">        Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
 
 <span class="sd">        Example</span>
 <span class="sd">        -------</span>
@@ -443,19 +419,136 @@
 <span class="sd">            clear_env_file()</span>
 
 <span class="sd">            # Create default key value env</span>
-<span class="sd">            env = dict(USER='msdss', PASSWORD='msdss123')</span>
+<span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
 
-<span class="sd">            # Save the key value env to an encrypted file</span>
-<span class="sd">            save_env_file(env)</span>
+<span class="sd">            # Set env var values</span>
+<span class="sd">            env.set('user', 'msdss')</span>
+<span class="sd">            env.set('password', 'msdss123')</span>
 <span class="sd">            </span>
-<span class="sd">            # Create env and load</span>
-<span class="sd">            env = EnvironmentVariables(secret='MSDSS_SECRET', password='PASSWORD')</span>
-<span class="sd">            env.load()</span>
+<span class="sd">            # Delete an env var based on key alias</span>
+<span class="sd">            env.delete('password')</span>
 <span class="sd">        """</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_path</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">throw_error</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Env or key file does not exist'</span><span class="p">)</span></div>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">del_env_var</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Check if a set of env vars exist based on the env and key files.</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        bool</span>
+<span class="sd">            Whether the env exists or not.</span>
+
+<span class="sd">        Author</span>
+<span class="sd">        ------</span>
+<span class="sd">        Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
+
+<span class="sd">        Example</span>
+<span class="sd">        -------</span>
+<span class="sd">        .. jupyter-execute::</span>
+
+<span class="sd">            from msdss_base_dotenv import *</span>
+<span class="sd">            from msdss_base_dotenv.tools import *</span>
+
+<span class="sd">            # Clear any existing env files</span>
+<span class="sd">            clear_env_file()</span>
+
+<span class="sd">            # Create default key value env</span>
+<span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
+
+<span class="sd">            # Set env var values</span>
+<span class="sd">            env.set('user', 'msdss')</span>
+<span class="sd">            env.set('password', 'msdss123')</span>
+
+<span class="sd">            # Check that env exists</span>
+<span class="sd">            before_clear = env.exists()</span>
+
+<span class="sd">            # Clear and check again</span>
+<span class="sd">            env.clear()</span>
+<span class="sd">            after_clear = env.exists()</span>
+
+<span class="sd">            # Print results</span>
+<span class="sd">            print('before_clear: ' + str(before_clear))</span>
+<span class="sd">            print('after_clear: ' + str(after_clear))</span>
+<span class="sd">        """</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">env_exists</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Obtain the value of an env var.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key : str</span>
+<span class="sd">            The key to get a reference env var.</span>
+<span class="sd">        default : str or None</span>
+<span class="sd">            A default value if there is no value set for the env var.</span>
+
+<span class="sd">        Author</span>
+<span class="sd">        ------</span>
+<span class="sd">        Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
+
+<span class="sd">        Example</span>
+<span class="sd">        -------</span>
+<span class="sd">        .. jupyter-execute::</span>
+
+<span class="sd">            from msdss_base_dotenv import *</span>
+<span class="sd">            from msdss_base_dotenv.tools import *</span>
+
+<span class="sd">            # Clear any existing env files</span>
+<span class="sd">            clear_env_file()</span>
+
+<span class="sd">            # Create default key value env</span>
+<span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
+
+<span class="sd">            # Set env var values</span>
+<span class="sd">            env.set('user', 'msdss')</span>
+<span class="sd">            env.set('password', 'msdss123')</span>
+
+<span class="sd">            # Get the PASSWORD var</span>
+<span class="sd">            password = env.get('password')</span>
+<span class="sd">            print(password)</span>
+<span class="sd">        """</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Sets an env var.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key : str</span>
+<span class="sd">            The key to get a reference env var.</span>
+<span class="sd">        value : str</span>
+<span class="sd">            A value to set for the env var.</span>
+
+<span class="sd">        Author</span>
+<span class="sd">        ------</span>
+<span class="sd">        Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
+
+<span class="sd">        Example</span>
+<span class="sd">        -------</span>
+<span class="sd">        .. jupyter-execute::</span>
+
+<span class="sd">            from msdss_base_dotenv import *</span>
+<span class="sd">            from msdss_base_dotenv.tools import *</span>
+
+<span class="sd">            # Clear any existing env files</span>
+<span class="sd">            clear_env_file()</span>
+
+<span class="sd">            # Create default key value env</span>
+<span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
+
+<span class="sd">            # Set env var values</span>
+<span class="sd">            env.set('user', 'msdss')</span>
+<span class="sd">            env.set('password', 'msdss123')</span>
+<span class="sd">        """</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">set_env_var</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 </pre></div>
 
           </article>

@@ -317,13 +317,13 @@
     <span class="n">out</span> <span class="o">=</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">k</span> <span class="o">+</span> <span class="s1">'='</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">env_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
     <span class="k">return</span> <span class="n">out</span></div>
 
-<div class="viewcode-block" id="clear_env_file"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.clear_env_file">[docs]</a><span class="k">def</span> <span class="nf">clear_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="clear_env_file"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.clear_env_file">[docs]</a><span class="k">def</span> <span class="nf">clear_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Deletes the encrypted environment file and its key if they exist.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    file_path : str</span>
+<span class="sd">    env_file : str</span>
 <span class="sd">        Path of the encrypted environment file.</span>
 <span class="sd">    key_path : str</span>
 <span class="sd">        Path of the key file used to unlock the encrypted file. If None, this defaults to the package's directory.</span>
@@ -348,8 +348,8 @@
 <span class="sd">        clear_env_file()</span>
 <span class="sd">    """</span>
     
-    <span class="c1"># (clear_env_file_path) Get path of encrypted env files</span>
-    <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="c1"># (clear_env_env_file) Get path of encrypted env files</span>
+    <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">env_file</span><span class="p">)</span>
     <span class="n">key_path</span> <span class="o">=</span> <span class="n">key_path</span> <span class="k">if</span> <span class="n">key_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">__PATH__</span><span class="p">,</span> <span class="s1">'.env.key'</span><span class="p">)</span>
 
     <span class="c1"># (clear_env_file_remove) Remove the encrypted env files</span>
@@ -357,7 +357,7 @@
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="del_env_var"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.del_env_var">[docs]</a><span class="k">def</span> <span class="nf">del_env_var</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="del_env_var"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.del_env_var">[docs]</a><span class="k">def</span> <span class="nf">del_env_var</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Deletes an environmental variable using a file from :func:`msdss_base_dotenv.tools.save_env_file`.</span>
 <span class="sd">    </span>
@@ -365,7 +365,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    name : str</span>
 <span class="sd">        The name of the environmental variable to be deleted.</span>
-<span class="sd">    file_path : str</span>
+<span class="sd">    env_file : str</span>
 <span class="sd">        Path of the environment save file.</span>
 <span class="sd">    key_path : str</span>
 <span class="sd">        Path of the key file used to unlock the save file. If None, this defaults to the package's directory.</span>
@@ -406,18 +406,18 @@
 <span class="sd">        print('env: ' + str(env))</span>
 <span class="sd">        print('loaded_env: ' + str(loaded_env))</span>
 <span class="sd">    """</span>
-    <span class="n">env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">,</span> <span class="n">set_env</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">,</span> <span class="n">set_env</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
     <span class="k">del</span> <span class="n">env</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-    <span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span></div>
+    <span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="env_exists"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.env_exists">[docs]</a><span class="k">def</span> <span class="nf">env_exists</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="env_exists"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.env_exists">[docs]</a><span class="k">def</span> <span class="nf">env_exists</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Checks if an environment exists using a saved environment file from :func:`msdss_base_dotenv.tools.save_env_file`.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    file_path : str</span>
+<span class="sd">    env_file : str</span>
 <span class="sd">        Path of the environment save file.</span>
 <span class="sd">    key_path : str</span>
 <span class="sd">        Path of the key file used to unlock the save file. If None, this defaults to the package's directory.</span>
@@ -425,7 +425,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
-<span class="sd">        Whether or not ``file_path`` and ``key_path`` exist, which define whether the env exists.</span>
+<span class="sd">        Whether or not ``env_file`` and ``key_path`` exist, which define whether the env exists.</span>
 <span class="sd">    </span>
 <span class="sd">    Author</span>
 <span class="sd">    ------</span>
@@ -455,35 +455,35 @@
 <span class="sd">        print('exists_after: ' + str(exists_after))</span>
 <span class="sd">    """</span>
 
-    <span class="c1"># (env_exists_file_path) Get path of encrypted env file</span>
-    <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="c1"># (env_exists_env_file) Get path of encrypted env file</span>
+    <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">env_file</span><span class="p">)</span>
     <span class="n">key_path</span> <span class="o">=</span> <span class="n">key_path</span> <span class="k">if</span> <span class="n">key_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">__PATH__</span><span class="p">,</span> <span class="s1">'.env.key'</span><span class="p">)</span>
 
     <span class="c1"># (env_exists_return) Check if env file and key exists</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">env_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">key_path</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">out</span></div>
 
-<div class="viewcode-block" id="load_env_file"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.load_env_file">[docs]</a><span class="k">def</span> <span class="nf">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{},</span> <span class="n">set_env</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="load_env_file"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.load_env_file">[docs]</a><span class="k">def</span> <span class="nf">load_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{},</span> <span class="n">set_env</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Loads a saved environment file from :func:`msdss_base_dotenv.tools.save_env_file`.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    file_path : str</span>
+<span class="sd">    env_file : str</span>
 <span class="sd">        Path of the environment save file.</span>
 <span class="sd">    key_path : str</span>
 <span class="sd">        Path of the key file used to unlock the save file. If None, this defaults to the package's directory.</span>
 <span class="sd">    defaults : dict</span>
 <span class="sd">        Key and value pairs representing default environment values to be loaded. These will replace ones in ``env`` if they do not exist or are unset.</span>
 <span class="sd">    set_env : bool</span>
-<span class="sd">        Whether to set the ``os.environ`` with the variables in the ``file_path`` or not.</span>
+<span class="sd">        Whether to set the ``os.environ`` with the variables in the ``env_file`` or not.</span>
 <span class="sd">    return_dict : bool</span>
 <span class="sd">        Whether to return a dictionary of the env variables or not.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    dict</span>
-<span class="sd">        Dictionary of the decrypted key value environment from ``file_path`` if ``return_dict`` is ``True``.</span>
+<span class="sd">        Dictionary of the decrypted key value environment from ``env_file`` if ``return_dict`` is ``True``.</span>
 <span class="sd">    </span>
 <span class="sd">    Author</span>
 <span class="sd">    ------</span>
@@ -519,8 +519,8 @@
 <span class="sd">        print('loaded_env: ' + str(loaded_env))</span>
 <span class="sd">    """</span>
     
-    <span class="c1"># (load_env_file_path) Get path of encrypted env file</span>
-    <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="c1"># (load_env_env_file) Get path of encrypted env file</span>
+    <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">env_file</span><span class="p">)</span>
     <span class="n">key_path</span> <span class="o">=</span> <span class="n">key_path</span> <span class="k">if</span> <span class="n">key_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">__PATH__</span><span class="p">,</span> <span class="s1">'.env.key'</span><span class="p">)</span>
 
     <span class="c1"># (load_env_file_load) Load env details file</span>
@@ -553,7 +553,7 @@
         <span class="n">out</span> <span class="o">=</span> <span class="n">env</span>
         <span class="k">return</span> <span class="n">out</span></div>
 
-<div class="viewcode-block" id="save_env_file"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.save_env_file">[docs]</a><span class="k">def</span> <span class="nf">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{}):</span>
+<div class="viewcode-block" id="save_env_file"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.save_env_file">[docs]</a><span class="k">def</span> <span class="nf">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{}):</span>
     <span class="sd">"""</span>
 <span class="sd">    Saves a login file with the connection details.</span>
 <span class="sd">    </span>
@@ -561,7 +561,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    env : dict</span>
 <span class="sd">        Key and value pairs representing environment values to be saved.</span>
-<span class="sd">    file_path : str</span>
+<span class="sd">    env_file : str</span>
 <span class="sd">        Path of the encrypted environment save file. Read/write/execute permissions will be set only for the owner of this file.</span>
 <span class="sd">    key_path : str</span>
 <span class="sd">        Path of the key file used to unlock the save file. If ``None``, this defaults to the package's directory.</span>
@@ -593,8 +593,8 @@
     <span class="n">defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">defaults</span><span class="p">)</span>
 
-    <span class="c1"># (save_env_file_path) Get path of encrypted env file</span>
-    <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="c1"># (save_env_env_file) Get path of encrypted env file</span>
+    <span class="n">env_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">env_file</span><span class="p">)</span>
     <span class="n">key_path</span> <span class="o">=</span> <span class="n">key_path</span> <span class="k">if</span> <span class="n">key_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">__PATH__</span><span class="p">,</span> <span class="s1">'.env.key'</span><span class="p">)</span>
 
     <span class="c1"># (save_env_file_key) Obtain key if exists or create one if not</span>
@@ -614,7 +614,7 @@
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">env_path</span><span class="p">,</span> <span class="s1">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">env_file</span><span class="p">:</span>
         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">env_file</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="set_env_var"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.set_env_var">[docs]</a><span class="k">def</span> <span class="nf">set_env_var</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="set_env_var"><a class="viewcode-back" href="../../reference/tools.html#msdss_base_dotenv.tools.set_env_var">[docs]</a><span class="k">def</span> <span class="nf">set_env_var</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Sets an environmental variable using a file from :func:`msdss_base_dotenv.tools.save_env_file`.</span>
 <span class="sd">    </span>
@@ -624,7 +624,7 @@
 <span class="sd">        The name of the environmental variable to be set.</span>
 <span class="sd">    value : str</span>
 <span class="sd">        The value of the environmental variable to be set.</span>
-<span class="sd">    file_path : str</span>
+<span class="sd">    env_file : str</span>
 <span class="sd">        Path of the environment save file.</span>
 <span class="sd">    key_path : str</span>
 <span class="sd">        Path of the key file used to unlock the save file. If None, this defaults to the package's directory.</span>
@@ -663,10 +663,10 @@
 <span class="sd">        print('env: ' + str(env))</span>
 <span class="sd">        print('loaded_env: ' + str(loaded_env))</span>
 <span class="sd">    """</span>
-    <span class="n">env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">,</span> <span class="n">set_env</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">,</span> <span class="n">set_env</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
     <span class="n">env</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-    <span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span></div>
+    <span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">)</span></div>
 </pre></div>
 
           </article>

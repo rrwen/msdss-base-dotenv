@@ -47,7 +47,7 @@
   
   
   
-    <title>CLI &#8212; 0.2.5</title>
+    <title>cli &#8212; 0.2.5</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -65,8 +65,8 @@
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tools" href="tools.html" />
-    <link rel="prev" title="Core" href="core.html" />
+    <link rel="next" title="tools" href="tools.html" />
+    <link rel="prev" title="DotEnv" href="core.html" />
   
    
 
@@ -104,7 +104,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">msdss-base-dotenv</span>
-          <span class="md-header-nav__topic"> CLI </span>
+          <span class="md-header-nav__topic"> cli </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -259,7 +259,7 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#reference-cli--page-root" class="md-nav__link">CLI</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#reference-cli--page-root" class="md-nav__link">cli</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#get-parser" class="md-nav__link">_get_parser</a>
         </li>
@@ -282,7 +282,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="cli">
-<h1 id="reference-cli--page-root">CLI<a class="headerlink" href="#reference-cli--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="reference-cli--page-root">cli<a class="headerlink" href="#reference-cli--page-root" title="Permalink to this headline">¶</a></h1>
 <section id="get-parser">
 <h2 id="get-parser">_get_parser<a class="headerlink" href="#get-parser" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
@@ -328,16 +328,14 @@
 </div>
 <div class="jupyter_cell docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>usage: ipykernel_launcher.py [-h] [--file_path FILE_PATH]
-                             [--key_path KEY_PATH]
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>usage: ipykernel_launcher.py [-h] [--env_file ENV_FILE] [--key_path KEY_PATH]
                              {init,set,del,clear} ...
 
 Manages encrypted .env files
 
 optional arguments:
   -h, --help            show this help message and exit
-  --file_path FILE_PATH
-                        path of .env file
+  --env_file ENV_FILE   path of .env file
   --key_path KEY_PATH   path of key file
 
 commands:
@@ -380,7 +378,7 @@ commands:
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="core.html" title="Core"
+            <a href="core.html" title="DotEnv"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -389,17 +387,17 @@ commands:
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Core </span>
+                      class="md-footer-nav__direction"> Previous </span> DotEnv </span>
               </div>
             </a>
           
           
-            <a href="tools.html" title="Tools"
+            <a href="tools.html" title="tools"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Tools </span>
+                class="md-footer-nav__direction"> Next </span> tools </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

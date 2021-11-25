@@ -1,4 +1,4 @@
-CLI
+cli
 ===
 
 _get_parser

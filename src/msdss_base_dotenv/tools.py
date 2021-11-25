@@ -46,13 +46,13 @@ def _dict_to_dotenv(env_dict):
     out = '\n'.join([k + '=' + str(v) for k, v in env_dict.items()])
     return out
 
-def clear_env_file(file_path='./.env', key_path=None):
+def clear_env_file(env_file='./.env', key_path=None):
     """
     Deletes the encrypted environment file and its key if they exist.
     
     Parameters
     ----------
-    file_path : str
+    env_file : str
         Path of the encrypted environment file.
     key_path : str
         Path of the key file used to unlock the encrypted file. If None, this defaults to the package's directory.
@@ -77,8 +77,8 @@ def clear_env_file(file_path='./.env', key_path=None):
         clear_env_file()
     """
     
-    # (clear_env_file_path) Get path of encrypted env files
-    env_path = os.path.abspath(file_path)
+    # (clear_env_env_file) Get path of encrypted env files
+    env_path = os.path.abspath(env_file)
     key_path = key_path if key_path is not None else os.path.join(__PATH__, '.env.key')
 
     # (clear_env_file_remove) Remove the encrypted env files
@@ -86,7 +86,7 @@ def clear_env_file(file_path='./.env', key_path=None):
         if os.path.exists(path):
             os.remove(path)
 
-def del_env_var(name, file_path='./.env', key_path=None):
+def del_env_var(name, env_file='./.env', key_path=None):
     """
     Deletes an environmental variable using a file from :func:`msdss_base_dotenv.tools.save_env_file`.
     
@@ -94,7 +94,7 @@ def del_env_var(name, file_path='./.env', key_path=None):
     ----------
     name : str
         The name of the environmental variable to be deleted.
-    file_path : str
+    env_file : str
         Path of the environment save file.
     key_path : str
         Path of the key file used to unlock the save file. If None, this defaults to the package's directory.
@@ -135,18 +135,18 @@ def del_env_var(name, file_path='./.env', key_path=None):
         print('env: ' + str(env))
         print('loaded_env: ' + str(loaded_env))
     """
-    env = load_env_file(file_path=file_path, key_path=key_path, set_env=False, return_dict=True)
+    env = load_env_file(env_file=env_file, key_path=key_path, set_env=False, return_dict=True)
     del os.environ[name]
     del env[name]
-    save_env_file(env, file_path=file_path, key_path=key_path)
+    save_env_file(env, env_file=env_file, key_path=key_path)
 
-def env_exists(file_path='./.env', key_path=None):
+def env_exists(env_file='./.env', key_path=None):
     """
     Checks if an environment exists using a saved environment file from :func:`msdss_base_dotenv.tools.save_env_file`.
     
     Parameters
     ----------
-    file_path : str
+    env_file : str
         Path of the environment save file.
     key_path : str
         Path of the key file used to unlock the save file. If None, this defaults to the package's directory.
@@ -154,7 +154,7 @@ def env_exists(file_path='./.env', key_path=None):
     Returns
     -------
     bool
-        Whether or not ``file_path`` and ``key_path`` exist, which define whether the env exists.
+        Whether or not ``env_file`` and ``key_path`` exist, which define whether the env exists.
     
     Author
     ------
@@ -184,35 +184,35 @@ def env_exists(file_path='./.env', key_path=None):
         print('exists_after: ' + str(exists_after))
     """
 
-    # (env_exists_file_path) Get path of encrypted env file
-    env_path = os.path.abspath(file_path)
+    # (env_exists_env_file) Get path of encrypted env file
+    env_path = os.path.abspath(env_file)
     key_path = key_path if key_path is not None else os.path.join(__PATH__, '.env.key')
 
     # (env_exists_return) Check if env file and key exists
     out = os.path.isfile(env_path) and os.path.isfile(key_path)
     return out
 
-def load_env_file(file_path='./.env', key_path=None, defaults={}, set_env=True, return_dict=False):
+def load_env_file(env_file='./.env', key_path=None, defaults={}, set_env=True, return_dict=False):
     """
     Loads a saved environment file from :func:`msdss_base_dotenv.tools.save_env_file`.
     
     Parameters
     ----------
-    file_path : str
+    env_file : str
         Path of the environment save file.
     key_path : str
         Path of the key file used to unlock the save file. If None, this defaults to the package's directory.
     defaults : dict
         Key and value pairs representing default environment values to be loaded. These will replace ones in ``env`` if they do not exist or are unset.
     set_env : bool
-        Whether to set the ``os.environ`` with the variables in the ``file_path`` or not.
+        Whether to set the ``os.environ`` with the variables in the ``env_file`` or not.
     return_dict : bool
         Whether to return a dictionary of the env variables or not.
 
     Returns
     -------
     dict
-        Dictionary of the decrypted key value environment from ``file_path`` if ``return_dict`` is ``True``.
+        Dictionary of the decrypted key value environment from ``env_file`` if ``return_dict`` is ``True``.
     
     Author
     ------
@@ -248,8 +248,8 @@ def load_env_file(file_path='./.env', key_path=None, defaults={}, set_env=True, 
         print('loaded_env: ' + str(loaded_env))
     """
     
-    # (load_env_file_path) Get path of encrypted env file
-    env_path = os.path.abspath(file_path)
+    # (load_env_env_file) Get path of encrypted env file
+    env_path = os.path.abspath(env_file)
     key_path = key_path if key_path is not None else os.path.join(__PATH__, '.env.key')
 
     # (load_env_file_load) Load env details file
@@ -282,7 +282,7 @@ def load_env_file(file_path='./.env', key_path=None, defaults={}, set_env=True, 
         out = env
         return out
 
-def save_env_file(env, file_path='./.env', key_path=None, defaults={}):
+def save_env_file(env, env_file='./.env', key_path=None, defaults={}):
     """
     Saves a login file with the connection details.
     
@@ -290,7 +290,7 @@ def save_env_file(env, file_path='./.env', key_path=None, defaults={}):
     ----------
     env : dict
         Key and value pairs representing environment values to be saved.
-    file_path : str
+    env_file : str
         Path of the encrypted environment save file. Read/write/execute permissions will be set only for the owner of this file.
     key_path : str
         Path of the key file used to unlock the save file. If ``None``, this defaults to the package's directory.
@@ -322,8 +322,8 @@ def save_env_file(env, file_path='./.env', key_path=None, defaults={}):
     defaults.update(env)
     env = copy.deepcopy(defaults)
 
-    # (save_env_file_path) Get path of encrypted env file
-    env_path = os.path.abspath(file_path)
+    # (save_env_env_file) Get path of encrypted env file
+    env_path = os.path.abspath(env_file)
     key_path = key_path if key_path is not None else os.path.join(__PATH__, '.env.key')
 
     # (save_env_file_key) Obtain key if exists or create one if not
@@ -343,7 +343,7 @@ def save_env_file(env, file_path='./.env', key_path=None, defaults={}):
     with open(env_path, 'wb') as env_file:
         pickle.dump(out, env_file)
 
-def set_env_var(name, value, file_path='./.env', key_path=None):
+def set_env_var(name, value, env_file='./.env', key_path=None):
     """
     Sets an environmental variable using a file from :func:`msdss_base_dotenv.tools.save_env_file`.
     
@@ -353,7 +353,7 @@ def set_env_var(name, value, file_path='./.env', key_path=None):
         The name of the environmental variable to be set.
     value : str
         The value of the environmental variable to be set.
-    file_path : str
+    env_file : str
         Path of the environment save file.
     key_path : str
         Path of the key file used to unlock the save file. If None, this defaults to the package's directory.
@@ -392,7 +392,7 @@ def set_env_var(name, value, file_path='./.env', key_path=None):
         print('env: ' + str(env))
         print('loaded_env: ' + str(loaded_env))
     """
-    env = load_env_file(file_path=file_path, key_path=key_path, set_env=False, return_dict=True)
+    env = load_env_file(env_file=env_file, key_path=key_path, set_env=False, return_dict=True)
     os.environ[name] = str(value)
     env[name] = os.environ[name]
-    save_env_file(env, file_path=file_path, key_path=key_path)
+    save_env_file(env, env_file=env_file, key_path=key_path)

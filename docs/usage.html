@@ -339,54 +339,55 @@
 </section>
 <section id="python-class">
 <h2 id="python-class">Python Class<a class="headerlink" href="#python-class" title="Permalink to this headline">¶</a></h2>
-<p>Use a <a class="reference internal" href="reference/core.html#msdss_base_dotenv.core.EnvironmentVariables" title="msdss_base_dotenv.core.EnvironmentVariables"><code class="xref py py-class docutils literal notranslate"><span class="pre">msdss_base_dotenv.core.EnvironmentVariables</span></code></a> class to manage variables in an existing env file:</p>
+<p>Use a <a class="reference internal" href="reference/core.html#msdss_base_dotenv.core.DotEnv" title="msdss_base_dotenv.core.DotEnv"><code class="xref py py-class docutils literal notranslate"><span class="pre">msdss_base_dotenv.core.DotEnv</span></code></a> class to manage variables in an existing env file:</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">msdss_base_dotenv</span> <span class="kn">import</span> <span class="n">EnvironmentVariables</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">msdss_base_dotenv</span> <span class="kn">import</span> <span class="n">DotEnv</span>
 <span class="kn">from</span> <span class="nn">msdss_base_dotenv.tools</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="c1"># Clear existing env files</span>
+<span class="c1"># Clear any existing env files</span>
 <span class="n">clear_env_file</span><span class="p">()</span>
 
-<span class="c1"># Create env file</span>
-<span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">'msdss'</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">'msdss123'</span><span class="p">)</span> <span class="c1"># notice no NONEXIST var</span>
-<span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
+<span class="c1"># Create env</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span><span class="n">secret</span><span class="o">=</span><span class="s1">'MSDSS_SECRET'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
 
-<span class="c1"># Create object to represent env vars and load it</span>
-<span class="n">env</span> <span class="o">=</span> <span class="n">EnvironmentVariables</span><span class="p">(</span><span class="n">nonexist</span><span class="o">=</span><span class="s1">'NONEXIST'</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s1">'USER'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
-<span class="n">env</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="c1"># Set an env var</span>
+<span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'password'</span><span class="p">,</span> <span class="s1">'msdss123'</span><span class="p">)</span>
 
 <span class="c1"># Get an existing env var</span>
-<span class="n">password</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get_password</span><span class="p">()</span>
+<span class="n">password</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'password'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'password: '</span> <span class="o">+</span> <span class="n">password</span><span class="p">)</span>
 
 <span class="c1"># Get a non-existent env var</span>
-<span class="c1"># Will print the default value 'nonexist-default'</span>
-<span class="n">nonexist</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get_nonexist</span><span class="p">(</span><span class="s1">'nonexist-default'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'nonexist: '</span> <span class="o">+</span> <span class="n">nonexist</span><span class="p">)</span>
+<span class="c1"># Will print the default value 'secret-default'</span>
+<span class="n">secret</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'secret'</span><span class="p">,</span> <span class="s1">'secret-default'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'secret: '</span> <span class="o">+</span> <span class="n">secret</span><span class="p">)</span>
 
 <span class="c1"># Del the password</span>
-<span class="n">env</span><span class="o">.</span><span class="n">del_password</span><span class="p">()</span>
-<span class="n">password</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get_password</span><span class="p">()</span>
+<span class="n">env</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">'password'</span><span class="p">)</span>
+<span class="n">password</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'password'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'password_after_del: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">password</span><span class="p">))</span>
 
 <span class="c1"># Set the password</span>
-<span class="n">env</span><span class="o">.</span><span class="n">set_password</span><span class="p">(</span><span class="s1">'new-password'</span><span class="p">)</span>
-<span class="n">password</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get_password</span><span class="p">()</span>
+<span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'password'</span><span class="p">,</span> <span class="s1">'new-password'</span><span class="p">)</span>
+<span class="n">password</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'password'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'password_after_set: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">password</span><span class="p">))</span>
+
+<span class="c1"># Remove the env files</span>
+<span class="n">env</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>password: msdss123
-nonexist: msdss123
+secret: secret-default
 password_after_del: None
 password_after_set: new-password
 </pre></div>
 </div>
 </div>
 </div>
-<p>For more information, see <a class="reference internal" href="reference/core.html#msdss_base_dotenv.core.EnvironmentVariables" title="msdss_base_dotenv.core.EnvironmentVariables"><code class="xref py py-class docutils literal notranslate"><span class="pre">msdss_base_dotenv.core.EnvironmentVariables</span></code></a>.</p>
+<p>For more information, see <a class="reference internal" href="reference/core.html#msdss_base_dotenv.core.DotEnv" title="msdss_base_dotenv.core.DotEnv"><code class="xref py py-class docutils literal notranslate"><span class="pre">msdss_base_dotenv.core.DotEnv</span></code></a>.</p>
 </section>
 <section id="python-tools">
 <h2 id="python-tools">Python Tools<a class="headerlink" href="#python-tools" title="Permalink to this headline">¶</a></h2>
@@ -405,10 +406,10 @@ password_after_set: new-password
 
 <span class="c1"># Save encrypted env vars</span>
 <span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">'msdss'</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">'msdss123'</span><span class="p">)</span>
-<span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
+<span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
 
 <span class="c1"># Load encrypted env vars</span>
-<span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
+<span class="n">load_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
 <span class="n">loaded_env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
    <span class="n">USER</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'USER'</span><span class="p">],</span>
    <span class="n">PASSWORD</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'PASSWORD'</span><span class="p">]</span>
@@ -459,10 +460,10 @@ exists_after: True
 
 <span class="c1"># Save env vars</span>
 <span class="n">env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">USER</span><span class="o">=</span><span class="s1">'msdss'</span><span class="p">,</span> <span class="n">PASSWORD</span><span class="o">=</span><span class="s1">'msdss123'</span><span class="p">)</span>
-<span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
+<span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
 
 <span class="c1"># Load env vars</span>
-<span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
+<span class="n">load_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
 
 <span class="c1"># Remove the password variable</span>
 <span class="n">del_env_var</span><span class="p">(</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
@@ -471,7 +472,7 @@ exists_after: True
 <span class="n">set_env_var</span><span class="p">(</span><span class="s1">'SECRET'</span><span class="p">,</span> <span class="s1">'some-secret'</span><span class="p">)</span>
 
 <span class="c1"># Load the env vars with edits</span>
-<span class="n">load_env_file</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
+<span class="n">load_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="s1">'./.env'</span><span class="p">)</span>
 <span class="n">edited_env</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
    <span class="n">USER</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'USER'</span><span class="p">],</span>
    <span class="n">SECRET</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'SECRET'</span><span class="p">]</span>
