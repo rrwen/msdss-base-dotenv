@@ -114,7 +114,7 @@ class DotEnv:
         """
         clear_env_file(env_file=self.env_file, key_path=self.key_path)
 
-    def delete(self, key):
+    def delete(self, key, throw_error=False):
         """
         Delete an environment variable if it exists.
 
@@ -122,6 +122,8 @@ class DotEnv:
         ----------
         key : str
             The key to delete a reference env var.
+        throw_error : bool
+            Throw an error if the environment variable does not exist.
 
         Author
         ------
@@ -148,13 +150,12 @@ class DotEnv:
             # Print results
             print('before_delete: ' + before_delete)
             print('after_delete: ' + str(after_delete))
-
-            # Clear env files
-            env.clear()
         """
         name = self.mappings[key]
         if name in os.environ:
             del os.environ[name]
+        elif throw_error:
+            raise ValueError(f'Environment variable {name} does not exist')
 
     def exists(self):
         """
@@ -206,7 +207,7 @@ class DotEnv:
         key : str
             The key to get a reference env var.
         default : str or None
-            A default value if there is no value set for the env var.
+            A default value if there is no value set for the env var. If ``None``, it will use the value set in attribute ``.defaults`` before defaulting to ``None``.
 
         Author
         ------
@@ -219,21 +220,79 @@ class DotEnv:
             from msdss_base_dotenv import *
 
             # Create default key value env
-            env = DotEnv(user='USER', password='PASSWORD')
+            env = DotEnv(
+                someuser='SOME_USER',
+                password='PASSWORD',
+                defaults=dict(
+                    someuser='default-user'
+                )
+            )
 
             # Set env var values
-            env.set('user', 'msdss')
             env.set('password', 'msdss123')
 
             # Get the PASSWORD var
             password = env.get('password')
-            print(password)
+            print('password: ' + password)
 
-            # Clear env files
-            env.clear()
+            # Check if user is set
+            user_is_set = env.is_set('someuser')
+            print('user_is_set: ' + str(user_is_set))
+
+            # Get the USER var
+            # Will be default since it does not exist
+            user = env.get('someuser')
+            print('user: ' + user)
         """
         name = self.mappings[key]
+        default = default if default else self.defaults[key] if key in self.defaults else default
         out = os.getenv(name, default)
+        return out
+
+    def is_set(self, key):
+        """
+        Check whether an environment variable is set.
+
+        Parameters
+        ----------
+        key : str
+            The key to get a reference env var.
+
+        Returns
+        -------
+        bool
+            Whether or not the environment variable from ``key`` is set.
+
+        Author
+        ------
+        Richard Wen <rrwen.dev@gmail.com>
+
+        Example
+        -------
+        .. jupyter-execute::
+
+            from msdss_base_dotenv import *
+
+            # Create default key value env
+            env = DotEnv(
+                someuser='SOME_USER',
+                password='PASSWORD',
+                defaults=dict(
+                    someuser='default-user'
+                )
+            )
+
+            # Get the USER var
+            user_is_set = env.is_set('someuser')
+            print('user_is_set: ' + str(user_is_set))
+
+            # Get the USER var again
+            env.set('someuser', 'new-user')
+            user_is_set = env.is_set('someuser')
+            print('user_is_set_after: ' + str(user_is_set))
+        """
+        name = self.mappings[key]
+        out = name in os.environ
         return out
 
     def load(self):
@@ -341,9 +400,6 @@ class DotEnv:
             password = env.get('password')
             print('user: ' + user)
             print('password: ' + password)
-
-            # Clear env files
-            env.clear()
         """
         name = self.mappings[key]
         os.environ[name] = str(value)

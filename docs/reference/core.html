@@ -47,7 +47,7 @@
   
   
   
-    <title>core &#8212; 0.2.8</title>
+    <title>core &#8212; 0.2.9</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -90,11 +90,11 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../index.html" title="0.2.8"
+        <a href="../index.html" title="0.2.9"
            class="md-header-nav__button md-logo">
           
               <img src="../_static/logo.svg" height="26"
-                   alt="0.2.8 logo">
+                   alt="0.2.9 logo">
           
         </a>
       </div>
@@ -177,7 +177,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">0.2.8</a></li>
+          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">0.2.9</a></li>
           <li class="md-tabs__item"><a href="index.html" class="md-tabs__link">API Reference</a></li>
       </ul>
     </div>
@@ -190,13 +190,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../index.html" title="0.2.8" class="md-nav__button md-logo">
+    <a href="../index.html" title="0.2.9" class="md-nav__button md-logo">
       
         <img src="../_static/logo.svg" alt=" logo" width="48" height="48">
       
     </a>
     <a href="../index.html"
-       title="0.2.8">msdss-base-dotenv</a>
+       title="0.2.9">msdss-base-dotenv</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/rrwen/msdss-base-dotenv/" title="Go to repository" class="md-source" data-md-source="github">
@@ -270,6 +270,8 @@
         <li class="md-nav__item"><a href="#exists" class="md-nav__link">exists</a>
         </li>
         <li class="md-nav__item"><a href="#get" class="md-nav__link">get</a>
+        </li>
+        <li class="md-nav__item"><a href="#is-set" class="md-nav__link">is_set</a>
         </li>
         <li class="md-nav__item"><a href="#load" class="md-nav__link">load</a>
         </li>
@@ -448,11 +450,14 @@ password_after_set: new-password
 <h3 id="delete">delete<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h3>
 <dl class="py method">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.DotEnv.delete">
-<span class="sig-prename descclassname"><span class="pre">DotEnv.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv.delete" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">DotEnv.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">throw_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete an environment variable if it exists.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The key to delete a reference env var.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The key to delete a reference env var.</p></li>
+<li><p><strong>throw_error</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Throw an error if the environment variable does not exist.</p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">Author</p>
@@ -477,9 +482,6 @@ password_after_set: new-password
 <span class="c1"># Print results</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'before_delete: '</span> <span class="o">+</span> <span class="n">before_delete</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'after_delete: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">after_delete</span><span class="p">))</span>
-
-<span class="c1"># Clear env files</span>
-<span class="n">env</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -553,7 +555,7 @@ after_clear: False
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The key to get a reference env var.</p></li>
-<li><p><strong>default</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a>) – A default value if there is no value set for the env var.</p></li>
+<li><p><strong>default</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a>) – A default value if there is no value set for the env var. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will use the value set in attribute <code class="docutils literal notranslate"><span class="pre">.defaults</span></code> before defaulting to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -565,23 +567,89 @@ after_clear: False
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">msdss_base_dotenv</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># Create default key value env</span>
-<span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">'USER'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span>
+    <span class="n">someuser</span><span class="o">=</span><span class="s1">'SOME_USER'</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">,</span>
+    <span class="n">defaults</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">someuser</span><span class="o">=</span><span class="s1">'default-user'</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 
 <span class="c1"># Set env var values</span>
-<span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="s1">'msdss'</span><span class="p">)</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'password'</span><span class="p">,</span> <span class="s1">'msdss123'</span><span class="p">)</span>
 
 <span class="c1"># Get the PASSWORD var</span>
 <span class="n">password</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'password'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'password: '</span> <span class="o">+</span> <span class="n">password</span><span class="p">)</span>
 
-<span class="c1"># Clear env files</span>
-<span class="n">env</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="c1"># Check if user is set</span>
+<span class="n">user_is_set</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">is_set</span><span class="p">(</span><span class="s1">'someuser'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'user_is_set: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">user_is_set</span><span class="p">))</span>
+
+<span class="c1"># Get the USER var</span>
+<span class="c1"># Will be default since it does not exist</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'someuser'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'user: '</span> <span class="o">+</span> <span class="n">user</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>msdss123
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>password: msdss123
+user_is_set: False
+user: default-user
+</pre></div>
+</div>
+</div>
+</div>
+</dd></dl>
+</section>
+<section id="is-set">
+<h3 id="is-set">is_set<a class="headerlink" href="#is-set" title="Permalink to this headline">¶</a></h3>
+<dl class="py method">
+<dt class="sig sig-object py" id="msdss_base_dotenv.core.DotEnv.is_set">
+<span class="sig-prename descclassname"><span class="pre">DotEnv.</span></span><span class="sig-name descname"><span class="pre">is_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv.is_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv.is_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether an environment variable is set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The key to get a reference env var.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether or not the environment variable from <code class="docutils literal notranslate"><span class="pre">key</span></code> is set.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
+</dd>
+</dl>
+<p class="rubric">Author</p>
+<p>Richard Wen &lt;<a class="reference external" href="mailto:rrwen.dev%40gmail.com">rrwen<span>.</span>dev<span>@</span>gmail<span>.</span>com</a>&gt;</p>
+<p class="rubric">Example</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">msdss_base_dotenv</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Create default key value env</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span>
+    <span class="n">someuser</span><span class="o">=</span><span class="s1">'SOME_USER'</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">,</span>
+    <span class="n">defaults</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">someuser</span><span class="o">=</span><span class="s1">'default-user'</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Get the USER var</span>
+<span class="n">user_is_set</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">is_set</span><span class="p">(</span><span class="s1">'someuser'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'user_is_set: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">user_is_set</span><span class="p">))</span>
+
+<span class="c1"># Get the USER var again</span>
+<span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'someuser'</span><span class="p">,</span> <span class="s1">'new-user'</span><span class="p">)</span>
+<span class="n">user_is_set</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">is_set</span><span class="p">(</span><span class="s1">'someuser'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'user_is_set_after: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">user_is_set</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>user_is_set: False
+user_is_set_after: True
 </pre></div>
 </div>
 </div>
@@ -697,9 +765,6 @@ after_clear: False
 <span class="n">password</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'password'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'user: '</span> <span class="o">+</span> <span class="n">user</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'password: '</span> <span class="o">+</span> <span class="n">password</span><span class="p">)</span>
-
-<span class="c1"># Clear env files</span>
-<span class="n">env</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

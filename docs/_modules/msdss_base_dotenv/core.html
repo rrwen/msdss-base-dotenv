@@ -46,7 +46,7 @@
   
   
   
-    <title>msdss_base_dotenv.core &#8212; 0.2.8</title>
+    <title>msdss_base_dotenv.core &#8212; 0.2.9</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -87,11 +87,11 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../../index.html" title="0.2.8"
+        <a href="../../index.html" title="0.2.9"
            class="md-header-nav__button md-logo">
           
               <img src="../../_static/logo.svg" height="26"
-                   alt="0.2.8 logo">
+                   alt="0.2.9 logo">
           
         </a>
       </div>
@@ -174,7 +174,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">0.2.8</a></li>
+          <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">0.2.9</a></li>
           <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">Module code</a></li>
       </ul>
     </div>
@@ -187,13 +187,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../../index.html" title="0.2.8" class="md-nav__button md-logo">
+    <a href="../../index.html" title="0.2.9" class="md-nav__button md-logo">
       
         <img src="../../_static/logo.svg" alt=" logo" width="48" height="48">
       
     </a>
     <a href="../../index.html"
-       title="0.2.8">msdss-base-dotenv</a>
+       title="0.2.9">msdss-base-dotenv</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/rrwen/msdss-base-dotenv/" title="Go to repository" class="md-source" data-md-source="github">
@@ -385,7 +385,7 @@
 <span class="sd">        """</span>
         <span class="n">clear_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_path</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DotEnv.delete"><a class="viewcode-back" href="../../reference/core.html#msdss_base_dotenv.core.DotEnv.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<div class="viewcode-block" id="DotEnv.delete"><a class="viewcode-back" href="../../reference/core.html#msdss_base_dotenv.core.DotEnv.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">throw_error</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Delete an environment variable if it exists.</span>
 
@@ -393,6 +393,8 @@
 <span class="sd">        ----------</span>
 <span class="sd">        key : str</span>
 <span class="sd">            The key to delete a reference env var.</span>
+<span class="sd">        throw_error : bool</span>
+<span class="sd">            Throw an error if the environment variable does not exist.</span>
 
 <span class="sd">        Author</span>
 <span class="sd">        ------</span>
@@ -419,13 +421,12 @@
 <span class="sd">            # Print results</span>
 <span class="sd">            print('before_delete: ' + before_delete)</span>
 <span class="sd">            print('after_delete: ' + str(after_delete))</span>
-
-<span class="sd">            # Clear env files</span>
-<span class="sd">            env.clear()</span>
 <span class="sd">        """</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
-            <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+            <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">throw_error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Environment variable </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> does not exist'</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DotEnv.exists"><a class="viewcode-back" href="../../reference/core.html#msdss_base_dotenv.core.DotEnv.exists">[docs]</a>    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -477,7 +478,7 @@
 <span class="sd">        key : str</span>
 <span class="sd">            The key to get a reference env var.</span>
 <span class="sd">        default : str or None</span>
-<span class="sd">            A default value if there is no value set for the env var.</span>
+<span class="sd">            A default value if there is no value set for the env var. If ``None``, it will use the value set in attribute ``.defaults`` before defaulting to ``None``.</span>
 
 <span class="sd">        Author</span>
 <span class="sd">        ------</span>
@@ -490,21 +491,79 @@
 <span class="sd">            from msdss_base_dotenv import *</span>
 
 <span class="sd">            # Create default key value env</span>
-<span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
+<span class="sd">            env = DotEnv(</span>
+<span class="sd">                someuser='SOME_USER',</span>
+<span class="sd">                password='PASSWORD',</span>
+<span class="sd">                defaults=dict(</span>
+<span class="sd">                    someuser='default-user'</span>
+<span class="sd">                )</span>
+<span class="sd">            )</span>
 
 <span class="sd">            # Set env var values</span>
-<span class="sd">            env.set('user', 'msdss')</span>
 <span class="sd">            env.set('password', 'msdss123')</span>
 
 <span class="sd">            # Get the PASSWORD var</span>
 <span class="sd">            password = env.get('password')</span>
-<span class="sd">            print(password)</span>
+<span class="sd">            print('password: ' + password)</span>
 
-<span class="sd">            # Clear env files</span>
-<span class="sd">            env.clear()</span>
+<span class="sd">            # Check if user is set</span>
+<span class="sd">            user_is_set = env.is_set('someuser')</span>
+<span class="sd">            print('user_is_set: ' + str(user_is_set))</span>
+
+<span class="sd">            # Get the USER var</span>
+<span class="sd">            # Will be default since it does not exist</span>
+<span class="sd">            user = env.get('someuser')</span>
+<span class="sd">            print('user: ' + user)</span>
 <span class="sd">        """</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="n">default</span> <span class="k">if</span> <span class="n">default</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span> <span class="k">else</span> <span class="n">default</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+<div class="viewcode-block" id="DotEnv.is_set"><a class="viewcode-back" href="../../reference/core.html#msdss_base_dotenv.core.DotEnv.is_set">[docs]</a>    <span class="k">def</span> <span class="nf">is_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Check whether an environment variable is set.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key : str</span>
+<span class="sd">            The key to get a reference env var.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            Whether or not the environment variable from ``key`` is set.</span>
+
+<span class="sd">        Author</span>
+<span class="sd">        ------</span>
+<span class="sd">        Richard Wen &lt;rrwen.dev@gmail.com&gt;</span>
+
+<span class="sd">        Example</span>
+<span class="sd">        -------</span>
+<span class="sd">        .. jupyter-execute::</span>
+
+<span class="sd">            from msdss_base_dotenv import *</span>
+
+<span class="sd">            # Create default key value env</span>
+<span class="sd">            env = DotEnv(</span>
+<span class="sd">                someuser='SOME_USER',</span>
+<span class="sd">                password='PASSWORD',</span>
+<span class="sd">                defaults=dict(</span>
+<span class="sd">                    someuser='default-user'</span>
+<span class="sd">                )</span>
+<span class="sd">            )</span>
+
+<span class="sd">            # Get the USER var</span>
+<span class="sd">            user_is_set = env.is_set('someuser')</span>
+<span class="sd">            print('user_is_set: ' + str(user_is_set))</span>
+
+<span class="sd">            # Get the USER var again</span>
+<span class="sd">            env.set('someuser', 'new-user')</span>
+<span class="sd">            user_is_set = env.is_set('someuser')</span>
+<span class="sd">            print('user_is_set_after: ' + str(user_is_set))</span>
+<span class="sd">        """</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
         <span class="k">return</span> <span class="n">out</span></div>
 
 <div class="viewcode-block" id="DotEnv.load"><a class="viewcode-back" href="../../reference/core.html#msdss_base_dotenv.core.DotEnv.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -612,9 +671,6 @@
 <span class="sd">            password = env.get('password')</span>
 <span class="sd">            print('user: ' + user)</span>
 <span class="sd">            print('password: ' + password)</span>
-
-<span class="sd">            # Clear env files</span>
-<span class="sd">            env.clear()</span>
 <span class="sd">        """</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>

@@ -28,6 +28,11 @@ get
 
 .. automethod:: msdss_base_dotenv.core.DotEnv.get
 
+is_set
+^^^^^^
+
+.. automethod:: msdss_base_dotenv.core.DotEnv.is_set
+
 load
 ^^^^
 
