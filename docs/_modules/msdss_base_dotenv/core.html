@@ -46,7 +46,7 @@
   
   
   
-    <title>msdss_base_dotenv.core &#8212; 0.2.5</title>
+    <title>msdss_base_dotenv.core &#8212; 0.2.7</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -87,11 +87,11 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../../index.html" title="0.2.5"
+        <a href="../../index.html" title="0.2.7"
            class="md-header-nav__button md-logo">
           
               <img src="../../_static/logo.svg" height="26"
-                   alt="0.2.5 logo">
+                   alt="0.2.7 logo">
           
         </a>
       </div>
@@ -174,7 +174,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">0.2.5</a></li>
+          <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">0.2.7</a></li>
           <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">Module code</a></li>
       </ul>
     </div>
@@ -187,13 +187,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../../index.html" title="0.2.5" class="md-nav__button md-logo">
+    <a href="../../index.html" title="0.2.7" class="md-nav__button md-logo">
       
         <img src="../../_static/logo.svg" alt=" logo" width="48" height="48">
       
     </a>
     <a href="../../index.html"
-       title="0.2.5">msdss-base-dotenv</a>
+       title="0.2.7">msdss-base-dotenv</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/rrwen/msdss-base-dotenv/" title="Go to repository" class="md-source" data-md-source="github">
@@ -270,9 +270,6 @@
             
   <h1 id="modules-msdss-base-dotenv-core--page-root">Source code for msdss_base_dotenv.core</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
-
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-
 <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="o">*</span>
 
 <div class="viewcode-block" id="DotEnv"><a class="viewcode-back" href="../../reference/core.html#msdss_base_dotenv.core.DotEnv">[docs]</a><span class="k">class</span> <span class="nc">DotEnv</span><span class="p">:</span>
@@ -317,7 +314,6 @@
 
 <span class="sd">        # Create env</span>
 <span class="sd">        env = DotEnv(secret='MSDSS_SECRET', password='PASSWORD')</span>
-<span class="sd">        env.save()</span>
 
 <span class="sd">        # Set an env var</span>
 <span class="sd">        env.set('password', 'msdss123')</span>
@@ -340,6 +336,12 @@
 <span class="sd">        env.set('password', 'new-password')</span>
 <span class="sd">        password = env.get('password')</span>
 <span class="sd">        print('password_after_set: ' + str(password))</span>
+
+<span class="sd">        # Save the env file</span>
+<span class="sd">        env.save()</span>
+
+<span class="sd">        # Load the saved env file</span>
+<span class="sd">        env.load()</span>
 
 <span class="sd">        # Remove the env files</span>
 <span class="sd">        env.clear()</span>
@@ -371,7 +373,6 @@
 
 <span class="sd">            # Create env</span>
 <span class="sd">            env = DotEnv(secret='MSDSS_SECRET', password='PASSWORD')</span>
-<span class="sd">            env.save()</span>
 
 <span class="sd">            # Set an env var</span>
 <span class="sd">            env.set('password', 'msdss123')</span>
@@ -405,20 +406,25 @@
 
 <span class="sd">            # Create default key value env</span>
 <span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
-<span class="sd">            env.save()</span>
 
 <span class="sd">            # Set env var values</span>
 <span class="sd">            env.set('user', 'msdss')</span>
 <span class="sd">            env.set('password', 'msdss123')</span>
+<span class="sd">            before_delete = env.get('password')</span>
 <span class="sd">            </span>
 <span class="sd">            # Delete an env var based on key alias</span>
 <span class="sd">            env.delete('password')</span>
+<span class="sd">            after_delete = env.get('password')</span>
+
+<span class="sd">            # Print results</span>
+<span class="sd">            print('before_delete: ' + before_delete)</span>
+<span class="sd">            print('after_delete: ' + str(after_delete))</span>
 
 <span class="sd">            # Clear env files</span>
 <span class="sd">            env.clear()</span>
 <span class="sd">        """</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="n">del_env_var</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+        <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="DotEnv.exists"><a class="viewcode-back" href="../../reference/core.html#msdss_base_dotenv.core.DotEnv.exists">[docs]</a>    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -441,13 +447,13 @@
 
 <span class="sd">            # Create default key value env</span>
 <span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
-<span class="sd">            env.save()</span>
 
 <span class="sd">            # Set env var values</span>
 <span class="sd">            env.set('user', 'msdss')</span>
 <span class="sd">            env.set('password', 'msdss123')</span>
 
 <span class="sd">            # Check that env exists</span>
+<span class="sd">            env.save()</span>
 <span class="sd">            before_clear = env.exists()</span>
 
 <span class="sd">            # Clear and check again</span>
@@ -484,7 +490,6 @@
 
 <span class="sd">            # Create default key value env</span>
 <span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
-<span class="sd">            env.save()</span>
 
 <span class="sd">            # Set env var values</span>
 <span class="sd">            env.set('user', 'msdss')</span>
@@ -517,7 +522,6 @@
 
 <span class="sd">            # Create default key value env</span>
 <span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
-<span class="sd">            env.save()</span>
 <span class="sd">            env.set('user', 'new-user')</span>
 
 <span class="sd">            # Save the env vars</span>
@@ -549,7 +553,6 @@
 
 <span class="sd">            # Create default key value env</span>
 <span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
-<span class="sd">            env.save()</span>
 <span class="sd">            env.set('user', 'new-user')</span>
 
 <span class="sd">            # Save the env vars</span>
@@ -598,7 +601,6 @@
 
 <span class="sd">            # Create default key value env</span>
 <span class="sd">            env = DotEnv(user='USER', password='PASSWORD')</span>
-<span class="sd">            env.save()</span>
 
 <span class="sd">            # Set env var values</span>
 <span class="sd">            env.set('user', 'msdss')</span>
@@ -614,7 +616,7 @@
 <span class="sd">            env.clear()</span>
 <span class="sd">        """</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="n">set_env_var</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div></div>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
 </pre></div>
 
           </article>

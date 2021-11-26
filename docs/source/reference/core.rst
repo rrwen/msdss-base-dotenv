@@ -1,3 +1,8 @@
+core
+====
+
+.. automodule:: msdss_base_dotenv.core
+
 DotEnv
 ------
 

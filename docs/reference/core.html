@@ -47,7 +47,7 @@
   
   
   
-    <title>DotEnv &#8212; 0.2.6</title>
+    <title>core &#8212; 0.2.7</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -90,11 +90,11 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../index.html" title="0.2.6"
+        <a href="../index.html" title="0.2.7"
            class="md-header-nav__button md-logo">
           
               <img src="../_static/logo.svg" height="26"
-                   alt="0.2.6 logo">
+                   alt="0.2.7 logo">
           
         </a>
       </div>
@@ -104,7 +104,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">msdss-base-dotenv</span>
-          <span class="md-header-nav__topic"> DotEnv </span>
+          <span class="md-header-nav__topic"> core </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -177,7 +177,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">0.2.6</a></li>
+          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">0.2.7</a></li>
           <li class="md-tabs__item"><a href="index.html" class="md-tabs__link">API Reference</a></li>
       </ul>
     </div>
@@ -190,13 +190,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../index.html" title="0.2.6" class="md-nav__button md-logo">
+    <a href="../index.html" title="0.2.7" class="md-nav__button md-logo">
       
         <img src="../_static/logo.svg" alt=" logo" width="48" height="48">
       
     </a>
     <a href="../index.html"
-       title="0.2.6">msdss-base-dotenv</a>
+       title="0.2.7">msdss-base-dotenv</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/rrwen/msdss-base-dotenv/" title="Go to repository" class="md-source" data-md-source="github">
@@ -259,7 +259,9 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#reference-core--page-root" class="md-nav__link">DotEnv</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#reference-core--page-root" class="md-nav__link">core</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#dotenv" class="md-nav__link">DotEnv</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#clear" class="md-nav__link">clear</a>
         </li>
@@ -274,6 +276,8 @@
         <li class="md-nav__item"><a href="#save" class="md-nav__link">save</a>
         </li>
         <li class="md-nav__item"><a href="#set" class="md-nav__link">set</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -291,8 +295,10 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="dotenv">
-<h1 id="reference-core--page-root">DotEnv<a class="headerlink" href="#reference-core--page-root" title="Permalink to this headline">¶</a></h1>
+  <section id="module-msdss_base_dotenv.core">
+<span id="core"></span><h1 id="reference-core--page-root">core<a class="headerlink" href="#reference-core--page-root" title="Permalink to this headline">¶</a></h1>
+<section id="dotenv">
+<h2 id="dotenv">DotEnv<a class="headerlink" href="#dotenv" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.DotEnv">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">msdss_base_dotenv.core.</span></span><span class="sig-name descname"><span class="pre">DotEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./.env'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv" title="Permalink to this definition">¶</a></dt>
@@ -362,7 +368,6 @@
 
 <span class="c1"># Create env</span>
 <span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span><span class="n">secret</span><span class="o">=</span><span class="s1">'MSDSS_SECRET'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
-<span class="n">env</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
 <span class="c1"># Set an env var</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'password'</span><span class="p">,</span> <span class="s1">'msdss123'</span><span class="p">)</span>
@@ -386,6 +391,12 @@
 <span class="n">password</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'password'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'password_after_set: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">password</span><span class="p">))</span>
 
+<span class="c1"># Save the env file</span>
+<span class="n">env</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="c1"># Load the saved env file</span>
+<span class="n">env</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
 <span class="c1"># Remove the env files</span>
 <span class="n">env</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </pre></div>
@@ -402,7 +413,7 @@ password_after_set: new-password
 </div>
 </dd></dl>
 <section id="clear">
-<h2 id="clear">clear<a class="headerlink" href="#clear" title="Permalink to this headline">¶</a></h2>
+<h3 id="clear">clear<a class="headerlink" href="#clear" title="Permalink to this headline">¶</a></h3>
 <dl class="py method">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.DotEnv.clear">
 <span class="sig-prename descclassname"><span class="pre">DotEnv.</span></span><span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv.clear" title="Permalink to this definition">¶</a></dt>
@@ -416,7 +427,6 @@ password_after_set: new-password
 
 <span class="c1"># Create env</span>
 <span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span><span class="n">secret</span><span class="o">=</span><span class="s1">'MSDSS_SECRET'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
-<span class="n">env</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
 <span class="c1"># Set an env var</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'password'</span><span class="p">,</span> <span class="s1">'msdss123'</span><span class="p">)</span>
@@ -435,7 +445,7 @@ password_after_set: new-password
 </dd></dl>
 </section>
 <section id="delete">
-<h2 id="delete">delete<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h2>
+<h3 id="delete">delete<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h3>
 <dl class="py method">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.DotEnv.delete">
 <span class="sig-prename descclassname"><span class="pre">DotEnv.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv.delete" title="Permalink to this definition">¶</a></dt>
@@ -454,14 +464,19 @@ password_after_set: new-password
 
 <span class="c1"># Create default key value env</span>
 <span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">'USER'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
-<span class="n">env</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
 <span class="c1"># Set env var values</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="s1">'msdss'</span><span class="p">)</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'password'</span><span class="p">,</span> <span class="s1">'msdss123'</span><span class="p">)</span>
+<span class="n">before_delete</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'password'</span><span class="p">)</span>
 
 <span class="c1"># Delete an env var based on key alias</span>
 <span class="n">env</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">'password'</span><span class="p">)</span>
+<span class="n">after_delete</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'password'</span><span class="p">)</span>
+
+<span class="c1"># Print results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'before_delete: '</span> <span class="o">+</span> <span class="n">before_delete</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'after_delete: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">after_delete</span><span class="p">))</span>
 
 <span class="c1"># Clear env files</span>
 <span class="n">env</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -469,12 +484,16 @@ password_after_set: new-password
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>before_delete: msdss123
+after_delete: None
+</pre></div>
+</div>
 </div>
 </div>
 </dd></dl>
 </section>
 <section id="exists">
-<h2 id="exists">exists<a class="headerlink" href="#exists" title="Permalink to this headline">¶</a></h2>
+<h3 id="exists">exists<a class="headerlink" href="#exists" title="Permalink to this headline">¶</a></h3>
 <dl class="py method">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.DotEnv.exists">
 <span class="sig-prename descclassname"><span class="pre">DotEnv.</span></span><span class="sig-name descname"><span class="pre">exists</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv.exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv.exists" title="Permalink to this definition">¶</a></dt>
@@ -496,13 +515,13 @@ password_after_set: new-password
 
 <span class="c1"># Create default key value env</span>
 <span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">'USER'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
-<span class="n">env</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
 <span class="c1"># Set env var values</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="s1">'msdss'</span><span class="p">)</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'password'</span><span class="p">,</span> <span class="s1">'msdss123'</span><span class="p">)</span>
 
 <span class="c1"># Check that env exists</span>
+<span class="n">env</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 <span class="n">before_clear</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
 
 <span class="c1"># Clear and check again</span>
@@ -525,7 +544,7 @@ after_clear: False
 </dd></dl>
 </section>
 <section id="get">
-<h2 id="get">get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h2>
+<h3 id="get">get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h3>
 <dl class="py method">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.DotEnv.get">
 <span class="sig-prename descclassname"><span class="pre">DotEnv.</span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv.get" title="Permalink to this definition">¶</a></dt>
@@ -547,7 +566,6 @@ after_clear: False
 
 <span class="c1"># Create default key value env</span>
 <span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">'USER'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
-<span class="n">env</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
 <span class="c1"># Set env var values</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="s1">'msdss'</span><span class="p">)</span>
@@ -571,7 +589,7 @@ after_clear: False
 </dd></dl>
 </section>
 <section id="load">
-<h2 id="load">load<a class="headerlink" href="#load" title="Permalink to this headline">¶</a></h2>
+<h3 id="load">load<a class="headerlink" href="#load" title="Permalink to this headline">¶</a></h3>
 <dl class="py method">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.DotEnv.load">
 <span class="sig-prename descclassname"><span class="pre">DotEnv.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv.load" title="Permalink to this definition">¶</a></dt>
@@ -585,7 +603,6 @@ after_clear: False
 
 <span class="c1"># Create default key value env</span>
 <span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">'USER'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
-<span class="n">env</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="s1">'new-user'</span><span class="p">)</span>
 
 <span class="c1"># Save the env vars</span>
@@ -610,7 +627,7 @@ after_clear: False
 </dd></dl>
 </section>
 <section id="save">
-<h2 id="save">save<a class="headerlink" href="#save" title="Permalink to this headline">¶</a></h2>
+<h3 id="save">save<a class="headerlink" href="#save" title="Permalink to this headline">¶</a></h3>
 <dl class="py method">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.DotEnv.save">
 <span class="sig-prename descclassname"><span class="pre">DotEnv.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv.save" title="Permalink to this definition">¶</a></dt>
@@ -624,7 +641,6 @@ after_clear: False
 
 <span class="c1"># Create default key value env</span>
 <span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">'USER'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
-<span class="n">env</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="s1">'new-user'</span><span class="p">)</span>
 
 <span class="c1"># Save the env vars</span>
@@ -649,7 +665,7 @@ after_clear: False
 </dd></dl>
 </section>
 <section id="set">
-<h2 id="set">set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h2>
+<h3 id="set">set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h3>
 <dl class="py method">
 <dt class="sig sig-object py" id="msdss_base_dotenv.core.DotEnv.set">
 <span class="sig-prename descclassname"><span class="pre">DotEnv.</span></span><span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/msdss_base_dotenv/core.html#DotEnv.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#msdss_base_dotenv.core.DotEnv.set" title="Permalink to this definition">¶</a></dt>
@@ -671,7 +687,6 @@ after_clear: False
 
 <span class="c1"># Create default key value env</span>
 <span class="n">env</span> <span class="o">=</span> <span class="n">DotEnv</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">'USER'</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">'PASSWORD'</span><span class="p">)</span>
-<span class="n">env</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
 <span class="c1"># Set env var values</span>
 <span class="n">env</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="s1">'msdss'</span><span class="p">)</span>
@@ -696,6 +711,7 @@ password: msdss123
 </div>
 </div>
 </dd></dl>
+</section>
 </section>
 </section>
 

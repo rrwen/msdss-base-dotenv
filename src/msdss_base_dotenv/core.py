@@ -1,7 +1,4 @@
 import os
-
-from functools import partial
-
 from .tools import *
 
 class DotEnv:
@@ -46,7 +43,6 @@ class DotEnv:
 
         # Create env
         env = DotEnv(secret='MSDSS_SECRET', password='PASSWORD')
-        env.save()
 
         # Set an env var
         env.set('password', 'msdss123')
@@ -69,6 +65,12 @@ class DotEnv:
         env.set('password', 'new-password')
         password = env.get('password')
         print('password_after_set: ' + str(password))
+
+        # Save the env file
+        env.save()
+
+        # Load the saved env file
+        env.load()
 
         # Remove the env files
         env.clear()
@@ -100,7 +102,6 @@ class DotEnv:
 
             # Create env
             env = DotEnv(secret='MSDSS_SECRET', password='PASSWORD')
-            env.save()
 
             # Set an env var
             env.set('password', 'msdss123')
@@ -134,20 +135,25 @@ class DotEnv:
 
             # Create default key value env
             env = DotEnv(user='USER', password='PASSWORD')
-            env.save()
 
             # Set env var values
             env.set('user', 'msdss')
             env.set('password', 'msdss123')
+            before_delete = env.get('password')
             
             # Delete an env var based on key alias
             env.delete('password')
+            after_delete = env.get('password')
+
+            # Print results
+            print('before_delete: ' + before_delete)
+            print('after_delete: ' + str(after_delete))
 
             # Clear env files
             env.clear()
         """
         name = self.mappings[key]
-        del_env_var(name)
+        del os.environ[name]
 
     def exists(self):
         """
@@ -170,13 +176,13 @@ class DotEnv:
 
             # Create default key value env
             env = DotEnv(user='USER', password='PASSWORD')
-            env.save()
 
             # Set env var values
             env.set('user', 'msdss')
             env.set('password', 'msdss123')
 
             # Check that env exists
+            env.save()
             before_clear = env.exists()
 
             # Clear and check again
@@ -213,7 +219,6 @@ class DotEnv:
 
             # Create default key value env
             env = DotEnv(user='USER', password='PASSWORD')
-            env.save()
 
             # Set env var values
             env.set('user', 'msdss')
@@ -246,7 +251,6 @@ class DotEnv:
 
             # Create default key value env
             env = DotEnv(user='USER', password='PASSWORD')
-            env.save()
             env.set('user', 'new-user')
 
             # Save the env vars
@@ -278,7 +282,6 @@ class DotEnv:
 
             # Create default key value env
             env = DotEnv(user='USER', password='PASSWORD')
-            env.save()
             env.set('user', 'new-user')
 
             # Save the env vars
@@ -327,7 +330,6 @@ class DotEnv:
 
             # Create default key value env
             env = DotEnv(user='USER', password='PASSWORD')
-            env.save()
 
             # Set env var values
             env.set('user', 'msdss')
@@ -343,4 +345,4 @@ class DotEnv:
             env.clear()
         """
         name = self.mappings[key]
-        set_env_var(name, value)
+        os.environ[name] = str(value)
