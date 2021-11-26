@@ -116,7 +116,7 @@ class DotEnv:
 
     def delete(self, key):
         """
-        Delete an environment variable.
+        Delete an environment variable if it exists.
 
         Parameters
         ----------
@@ -153,7 +153,8 @@ class DotEnv:
             env.clear()
         """
         name = self.mappings[key]
-        del os.environ[name]
+        if name in os.environ:
+            del os.environ[name]
 
     def exists(self):
         """
