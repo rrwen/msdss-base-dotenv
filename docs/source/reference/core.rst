@@ -23,6 +23,16 @@ get
 
 .. automethod:: msdss_base_dotenv.core.DotEnv.get
 
+load
+^^^^
+
+.. automethod:: msdss_base_dotenv.core.DotEnv.load
+
+save
+^^^^
+
+.. automethod:: msdss_base_dotenv.core.DotEnv.save
+
 set
 ^^^
 

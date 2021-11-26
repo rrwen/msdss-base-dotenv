@@ -47,7 +47,7 @@
   
   
   
-    <title>tools &#8212; 0.2.5</title>
+    <title>tools &#8212; 0.2.6</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -89,11 +89,11 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../index.html" title="0.2.5"
+        <a href="../index.html" title="0.2.6"
            class="md-header-nav__button md-logo">
           
               <img src="../_static/logo.svg" height="26"
-                   alt="0.2.5 logo">
+                   alt="0.2.6 logo">
           
         </a>
       </div>
@@ -176,7 +176,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">0.2.5</a></li>
+          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">0.2.6</a></li>
           <li class="md-tabs__item"><a href="index.html" class="md-tabs__link">API Reference</a></li>
       </ul>
     </div>
@@ -189,13 +189,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../index.html" title="0.2.5" class="md-nav__button md-logo">
+    <a href="../index.html" title="0.2.6" class="md-nav__button md-logo">
       
         <img src="../_static/logo.svg" alt=" logo" width="48" height="48">
       
     </a>
     <a href="../index.html"
-       title="0.2.5">msdss-base-dotenv</a>
+       title="0.2.6">msdss-base-dotenv</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/rrwen/msdss-base-dotenv/" title="Go to repository" class="md-source" data-md-source="github">
@@ -422,6 +422,9 @@ PASSWORD=msdss123
 <span class="c1"># Display the results</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'env: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">env</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'loaded_env: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loaded_env</span><span class="p">))</span>
+
+<span class="c1"># Clear env files</span>
+<span class="n">clear_env_file</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -477,6 +480,9 @@ loaded_env: {'USER': 'msdss', 'PASSWORD': None}
 <span class="c1"># Display the results</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'exists_before: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">exists_before</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'exists_after: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">exists_after</span><span class="p">))</span>
+
+<span class="c1"># Clear env files</span>
+<span class="n">clear_env_file</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -541,6 +547,9 @@ exists_after: True
 <span class="nb">print</span><span class="p">(</span><span class="s1">'env: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">env</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'defaults: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">defaults</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'loaded_env: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loaded_env</span><span class="p">))</span>
+
+<span class="c1"># Clear env files</span>
+<span class="n">clear_env_file</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -585,6 +594,9 @@ loaded_env: {'USER': 'msdss', 'PASSWORD': 'msdss123', 'DATABASE': 'postgres'}
 
 <span class="c1"># Save the key value env to an encrypted file</span>
 <span class="n">save_env_file</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+
+<span class="c1"># Clear env files</span>
+<span class="n">clear_env_file</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -639,6 +651,9 @@ loaded_env: {'USER': 'msdss', 'PASSWORD': 'msdss123', 'DATABASE': 'postgres'}
 <span class="c1"># Display the results</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'env: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">env</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'loaded_env: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">loaded_env</span><span class="p">))</span>
+
+<span class="c1"># Clear env files</span>
+<span class="n">clear_env_file</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

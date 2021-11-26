@@ -134,6 +134,9 @@ def del_env_var(name, env_file='./.env', key_path=None):
         # Display the results
         print('env: ' + str(env))
         print('loaded_env: ' + str(loaded_env))
+
+        # Clear env files
+        clear_env_file()
     """
     env = load_env_file(env_file=env_file, key_path=key_path, set_env=False, return_dict=True)
     del os.environ[name]
@@ -182,6 +185,9 @@ def env_exists(env_file='./.env', key_path=None):
         # Display the results
         print('exists_before: ' + str(exists_before))
         print('exists_after: ' + str(exists_after))
+
+        # Clear env files
+        clear_env_file()
     """
 
     # (env_exists_env_file) Get path of encrypted env file
@@ -246,6 +252,9 @@ def load_env_file(env_file='./.env', key_path=None, defaults={}, set_env=True, r
         print('env: ' + str(env))
         print('defaults: ' + str(defaults))
         print('loaded_env: ' + str(loaded_env))
+
+        # Clear env files
+        clear_env_file()
     """
     
     # (load_env_env_file) Get path of encrypted env file
@@ -315,6 +324,9 @@ def save_env_file(env, env_file='./.env', key_path=None, defaults={}):
 
         # Save the key value env to an encrypted file
         save_env_file(env)
+
+        # Clear env files
+        clear_env_file()
     """
 
     # (save_env_file_defaults) Set default env values
@@ -391,6 +403,9 @@ def set_env_var(name, value, env_file='./.env', key_path=None):
         # Display the results
         print('env: ' + str(env))
         print('loaded_env: ' + str(loaded_env))
+
+        # Clear env files
+        clear_env_file()
     """
     env = load_env_file(env_file=env_file, key_path=key_path, set_env=False, return_dict=True)
     os.environ[name] = str(value)

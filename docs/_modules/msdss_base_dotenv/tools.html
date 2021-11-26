@@ -405,6 +405,9 @@
 <span class="sd">        # Display the results</span>
 <span class="sd">        print('env: ' + str(env))</span>
 <span class="sd">        print('loaded_env: ' + str(loaded_env))</span>
+
+<span class="sd">        # Clear env files</span>
+<span class="sd">        clear_env_file()</span>
 <span class="sd">    """</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">,</span> <span class="n">set_env</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
@@ -453,6 +456,9 @@
 <span class="sd">        # Display the results</span>
 <span class="sd">        print('exists_before: ' + str(exists_before))</span>
 <span class="sd">        print('exists_after: ' + str(exists_after))</span>
+
+<span class="sd">        # Clear env files</span>
+<span class="sd">        clear_env_file()</span>
 <span class="sd">    """</span>
 
     <span class="c1"># (env_exists_env_file) Get path of encrypted env file</span>
@@ -517,6 +523,9 @@
 <span class="sd">        print('env: ' + str(env))</span>
 <span class="sd">        print('defaults: ' + str(defaults))</span>
 <span class="sd">        print('loaded_env: ' + str(loaded_env))</span>
+
+<span class="sd">        # Clear env files</span>
+<span class="sd">        clear_env_file()</span>
 <span class="sd">    """</span>
     
     <span class="c1"># (load_env_env_file) Get path of encrypted env file</span>
@@ -586,6 +595,9 @@
 
 <span class="sd">        # Save the key value env to an encrypted file</span>
 <span class="sd">        save_env_file(env)</span>
+
+<span class="sd">        # Clear env files</span>
+<span class="sd">        clear_env_file()</span>
 <span class="sd">    """</span>
 
     <span class="c1"># (save_env_file_defaults) Set default env values</span>
@@ -662,6 +674,9 @@
 <span class="sd">        # Display the results</span>
 <span class="sd">        print('env: ' + str(env))</span>
 <span class="sd">        print('loaded_env: ' + str(loaded_env))</span>
+
+<span class="sd">        # Clear env files</span>
+<span class="sd">        clear_env_file()</span>
 <span class="sd">    """</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">load_env_file</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="n">env_file</span><span class="p">,</span> <span class="n">key_path</span><span class="o">=</span><span class="n">key_path</span><span class="p">,</span> <span class="n">set_env</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>

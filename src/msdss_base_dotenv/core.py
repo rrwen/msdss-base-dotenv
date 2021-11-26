@@ -43,13 +43,10 @@ class DotEnv:
     .. jupyter-execute::
 
         from msdss_base_dotenv import DotEnv
-        from msdss_base_dotenv.tools import *
-
-        # Clear any existing env files
-        clear_env_file()
 
         # Create env
         env = DotEnv(secret='MSDSS_SECRET', password='PASSWORD')
+        env.save()
 
         # Set an env var
         env.set('password', 'msdss123')
@@ -82,16 +79,9 @@ class DotEnv:
         key_path=None,
         defaults={},
         **kwargs):
-
-        # (DotEnv_create) Create .env file if it does not exist
-        if env_exists(env_file, key_path):
-            load_env_file(env_file=env_file, key_path=key_path, defaults=defaults)
-        else:
-            save_env_file(defaults, env_file, key_path)
-        
-        # (Environment_attrs) Set attrs
         self.env_file = env_file
         self.key_path = key_path
+        self.defaults = defaults
         self.mappings = kwargs
 
     def clear(self):
@@ -107,19 +97,18 @@ class DotEnv:
         .. jupyter-execute::
 
             from msdss_base_dotenv import *
-            from msdss_base_dotenv.tools import *
 
-            # Clear any existing env files
-            clear_env_file()
+            # Create env
+            env = DotEnv(secret='MSDSS_SECRET', password='PASSWORD')
+            env.save()
 
-            # Create default key value env
-            env = dict(USER='msdss', PASSWORD='msdss123')
+            # Set an env var
+            env.set('password', 'msdss123')
 
-            # Save the key value env to an encrypted file
-            save_env_file(env)
+            # Save the current specified env vars to an encrypted file
+            env.save()
             
-            # Create env and clear it
-            env = DotEnv()
+            # Create files
             env.clear()
         """
         clear_env_file(env_file=self.env_file, key_path=self.key_path)
@@ -142,13 +131,10 @@ class DotEnv:
         .. jupyter-execute::
 
             from msdss_base_dotenv import *
-            from msdss_base_dotenv.tools import *
-
-            # Clear any existing env files
-            clear_env_file()
 
             # Create default key value env
             env = DotEnv(user='USER', password='PASSWORD')
+            env.save()
 
             # Set env var values
             env.set('user', 'msdss')
@@ -156,6 +142,9 @@ class DotEnv:
             
             # Delete an env var based on key alias
             env.delete('password')
+
+            # Clear env files
+            env.clear()
         """
         name = self.mappings[key]
         del_env_var(name)
@@ -178,13 +167,10 @@ class DotEnv:
         .. jupyter-execute::
 
             from msdss_base_dotenv import *
-            from msdss_base_dotenv.tools import *
-
-            # Clear any existing env files
-            clear_env_file()
 
             # Create default key value env
             env = DotEnv(user='USER', password='PASSWORD')
+            env.save()
 
             # Set env var values
             env.set('user', 'msdss')
@@ -224,13 +210,10 @@ class DotEnv:
         .. jupyter-execute::
 
             from msdss_base_dotenv import *
-            from msdss_base_dotenv.tools import *
-
-            # Clear any existing env files
-            clear_env_file()
 
             # Create default key value env
             env = DotEnv(user='USER', password='PASSWORD')
+            env.save()
 
             # Set env var values
             env.set('user', 'msdss')
@@ -239,14 +222,91 @@ class DotEnv:
             # Get the PASSWORD var
             password = env.get('password')
             print(password)
+
+            # Clear env files
+            env.clear()
         """
         name = self.mappings[key]
         out = os.getenv(name, default)
         return out
 
+    def load(self):
+        """
+        Load env vars from the saved env file.
+
+        Author
+        ------
+        Richard Wen <rrwen.dev@gmail.com>
+
+        Example
+        -------
+        .. jupyter-execute::
+
+            from msdss_base_dotenv import *
+
+            # Create default key value env
+            env = DotEnv(user='USER', password='PASSWORD')
+            env.save()
+            env.set('user', 'new-user')
+
+            # Save the env vars
+            env.save()
+            
+            # Load and see env vars
+            env.load()
+            user = env.get('user')
+            print('user: ' + user)
+            
+            # Clear env files
+            env.clear()
+        """
+        load_env_file(env_file=self.env_file, key_path=self.key_path, defaults=self.defaults)
+
+    def save(self):
+        """
+        Save env vars to a file.
+
+        Author
+        ------
+        Richard Wen <rrwen.dev@gmail.com>
+
+        Example
+        -------
+        .. jupyter-execute::
+
+            from msdss_base_dotenv import *
+
+            # Create default key value env
+            env = DotEnv(user='USER', password='PASSWORD')
+            env.save()
+            env.set('user', 'new-user')
+
+            # Save the env vars
+            env.save()
+            
+            # Load and see env vars
+            env.load()
+            user = env.get('user')
+            print('user: ' + user)
+            
+            # Clear env files
+            env.clear()
+        """
+
+        # (DotEnv_save_current) Gather current env vars
+        current_vars = {}
+        for k in self.mappings:
+            name = self.mappings[k]
+            if name in os.environ:
+                current_vars[name] = os.environ[name]
+        
+        # (DotEnv_save_file) Save current env vars to a file
+        save_env_file(current_vars, self.env_file, self.key_path)
+        current_vars.clear()
+
     def set(self, key, value):
         """
-        Sets an env var.
+        Sets an env var and saves it in the file.
 
         Parameters
         ----------
@@ -264,17 +324,23 @@ class DotEnv:
         .. jupyter-execute::
 
             from msdss_base_dotenv import *
-            from msdss_base_dotenv.tools import *
-
-            # Clear any existing env files
-            clear_env_file()
 
             # Create default key value env
             env = DotEnv(user='USER', password='PASSWORD')
+            env.save()
 
             # Set env var values
             env.set('user', 'msdss')
             env.set('password', 'msdss123')
+
+            # Get env var values to check
+            user = env.get('user')
+            password = env.get('password')
+            print('user: ' + user)
+            print('password: ' + password)
+
+            # Clear env files
+            env.clear()
         """
         name = self.mappings[key]
         set_env_var(name, value)

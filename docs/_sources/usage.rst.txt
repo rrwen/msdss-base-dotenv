@@ -40,13 +40,14 @@ Use a :class:`msdss_base_dotenv.core.DotEnv` class to manage variables in an exi
 .. jupyter-execute::
 
    from msdss_base_dotenv import DotEnv
-   from msdss_base_dotenv.tools import *
-
-   # Clear any existing env files
-   clear_env_file()
 
    # Create env
-   env = DotEnv(secret='MSDSS_SECRET', password='PASSWORD')
+   env = DotEnv(
+      secret='MSDSS_SECRET',
+      password='PASSWORD',
+      env_file='./.env',
+      key_path=None)
+   env.save()
 
    # Set an env var
    env.set('password', 'msdss123')
@@ -69,6 +70,12 @@ Use a :class:`msdss_base_dotenv.core.DotEnv` class to manage variables in an exi
    env.set('password', 'new-password')
    password = env.get('password')
    print('password_after_set: ' + str(password))
+
+   # Save the current specified env vars
+   env.save()
+
+   # Load the env vars from the env_file
+   env.load()
 
    # Remove the env files
    env.clear()
@@ -122,6 +129,9 @@ Create and load encrypted environment variables:
    print('loaded_env_defaults: ' + str(loaded_env_defaults))
    print('\nexists_after: ' + str(exists_after))
 
+   # Clear env files
+   clear_env_file()
+
 Edit saved encrypted environment variable files:
 
 .. jupyter-execute::
@@ -156,6 +166,9 @@ Edit saved encrypted environment variable files:
    # Display the results
    print('env: ' + str(env))
    print('edited_env: ' + str(edited_env))
+
+   # Clear env files
+   clear_env_file()
 
 For more information see:
 
